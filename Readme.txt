@@ -46,3 +46,4 @@ Currently the only semi working hacked together pos
  the index.html with 4 textboxes and 2 buttons
  -Currently the submit is hardcoded at line 48, line 46 is what we want to get working
  -Other button reads everything currently in the books table and posts it in JSON form
+ 
