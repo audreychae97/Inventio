@@ -20,7 +20,8 @@ db.connect((err) => {
 
 
 const app = express();
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Main page with submission
 app.get('/', function(req,res){
@@ -28,29 +29,29 @@ app.get('/', function(req,res){
 });
 
 // app.post('/book', function (req, res) {
-//   var createBook = {
-//     id: req.body.id,
-//     title: req.body.title,
-//     author: req.body.author,
-//     price: req.body.price
-//   }
-//   db.query('INSERT INTO books SET ?', createBook, fuction (err, res){
-//     if(err) throw err;
-//     res.send('Posted to DB!!!');
-//   });
+//   console.log(req.body.id);
 // });
 
+//current
 app.post('/book', function (req, res) {
    // Insert into db
    //db.query("INSERT INTO books (id, title, author, price) VALUES ('"+req.body.id+"', '"+req.body.title+"', '"+req.body.author+"', '"+req.body.price+"')", function (err, resp) {
-   //db.query("INSERT INTO books (id, title, author, price) VALUES ('"+req.body.id+"', '"+req.body.title+"', '"+req.body.author+"', '"+req.body.price+"')", function (err, resp) {
-
-   db.query("INSERT INTO books (id, title, author, price) VALUES (10, 'Book2', 'Author', 9.99)", function (err, resp) {
-
-     if (err) throw err;
-     // if there are no errors send an OK message.
-     res.send('Save succesfull, posted to DB');
-   });
+   if(req.body.id){
+     console.log("ID not null, no AUTO_INCREMENT");
+     db.query("INSERT INTO books (id, title, author, price) VALUES ('"+req.body.id+"', '"+req.body.title+"', '"+req.body.author+"', '"+req.body.price+"')", function (err, resp) {
+       if (err) throw err;
+       // if there are no errors send an OK message.
+       res.send('Save succesfull, posted to DB');
+     });
+   }
+   else{
+     console.log("ID is null, AUTO_INCREMENT instead");
+     db.query("INSERT INTO books (title, author, price) VALUES ('"+req.body.title+"', '"+req.body.author+"', '"+req.body.price+"')", function (err, resp) {
+       if (err) throw err;
+       // if there are no errors send an OK message.
+       res.send('Save succesfull, posted to DB');
+     });
+   }
  });
 
 // Get table, and display to screen

@@ -37,12 +37,11 @@ INSERT INTO books (id, title, author, price) VALUES (1, 'GoodBook', 'BadAuthor',
 -yee
 
 ==Using testForm.js==
-Currently the only semi working hacked together pos
+Simple example of some of the things we're to be doing, so just a proof pof concept
 
 -Again, make sure you have MySQL server running
 -Navigate to the folder where you downloaded the dev branch and call
  node formTest.js
 -Go to web browser and type in localhost:3000 and you should be displayed with
  the index.html with 4 textboxes and 2 buttons
- -Currently the submit is hardcoded at line 48, line 46 is what we want to get working
- -Other button reads everything currently in the books table and posts it in JSON form
+- Fixed reading from the textboxes so just hit submit and it will post to DB
