@@ -1,18 +1,56 @@
-var mysql      = require('mysql');
- var connection = mysql.createConnection({
-   host     : 'localhost',
-   user     : 'root',
-   password : '',
-   database : 'firsttestdb'
- });
+// Module dependencies
 
- connection.connect();
+var express    = require('express'),
+    mysql      = require('mysql');
 
- connection.query('SELECT * from books', function(err, rows, fields) {
-   if (!err)
-     console.log('The solution is: ', rows);
-   else
-     console.log('Error while performing Query.');
- });
+// Application initialization
 
- connection.end();
+var connection = mysql.createConnection({
+        host     : 'localhost',
+        user     : 'root',
+        password : ''
+    });
+
+var app = express();
+
+// Database setup
+
+connection.query('CREATE DATABASE IF NOT EXISTS test', function (err) {
+    if (err) throw err;
+    connection.query('USE test', function (err) {
+        if (err) throw err;
+        connection.query('CREATE TABLE IF NOT EXISTS users('
+            + 'id INT NOT NULL AUTO_INCREMENT,'
+            + 'PRIMARY KEY(id),'
+            + 'name VARCHAR(30)'
+            +  ')', function (err) {
+                if (err) throw err;
+            });
+    });
+});
+
+// Configuration
+
+app.use(express.bodyParser());
+
+// Main route sends our HTML file
+
+app.get('/', function(req, res) {
+    res.sendfile(__dirname + '/index.html');
+});
+
+// Update MySQL database
+
+app.post('/users', function (req, res) {
+    connection.query('INSERT INTO users SET ?', req.body,
+        function (err, result) {
+            if (err) throw err;
+            res.send('User added to database with ID: ' + result.insertId);
+        }
+    );
+});
+
+// Begin listening
+
+app.listen(3000);
+console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
