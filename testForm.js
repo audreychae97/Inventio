@@ -43,9 +43,9 @@ app.get('/', function(req,res){
 app.post('/book', function (req, res) {
    // Insert into db
    //db.query("INSERT INTO books (id, title, author, price) VALUES ('"+req.body.id+"', '"+req.body.title+"', '"+req.body.author+"', '"+req.body.price+"')", function (err, resp) {
-   db.query("INSERT INTO books (id, title, author, price) VALUES ('"+req.body.id+"', '"+req.body.title+"', '"+req.body.author+"', '"+req.body.price+"')", function (err, resp) {
+   //db.query("INSERT INTO books (id, title, author, price) VALUES ('"+req.body.id+"', '"+req.body.title+"', '"+req.body.author+"', '"+req.body.price+"')", function (err, resp) {
 
-   //db.query("INSERT INTO books (id, title, author, price) VALUES (11, 'Book2', 'Diego', 9.99)", function (err, resp) {
+   db.query("INSERT INTO books (id, title, author, price) VALUES (10, 'Book2', 'Author', 9.99)", function (err, resp) {
 
      if (err) throw err;
      // if there are no errors send an OK message.
