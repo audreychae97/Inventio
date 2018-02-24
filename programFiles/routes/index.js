@@ -21,6 +21,10 @@ router.get('/profile', authenticationMiddleware(),function(req, res, next) {
   res.render('profile', { title: 'Profile' });
 });
 
+router.get('/addproduct', authenticationMiddleware(),function(req, res, next) {
+  res.render('addproduct', { title: 'Add Products' });
+});
+
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' });
 });
