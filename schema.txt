@@ -1,7 +1,72 @@
-CREATE TABLE users(
-id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-username VARCHAR(15) NOT NULL UNIQUE,
+CREATE TABLE users
+(
+id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+username VARCHAR(100) NOT NULL UNIQUE,
 email VARCHAR(100) NOT NULL UNIQUE,
 password BINARY(60) NOT NULL
 );
 
+CREATE TABLE warehouse
+(
+   	WarehouseID INTEGER primary key AUTO_INCREMENT,
+   	WarehouseName VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE category
+(
+	CategoryID INTEGER primary key AUTO_INCREMENT, 
+	CategoryName VARCHAR(255) NOT NULL 
+);
+
+CREATE TABLE client 
+(
+   StoreID INTEGER primary key NOT NULL AUTO_INCREMENT,
+   StreetAddress VARCHAR (100) NOT NULL,
+   City VARCHAR(255) NOT NULL,
+   State VARCHAR(255) NOT NULL,
+   ZipCode VARCHAR(10) NOT NULL,
+   FirstName VARCHAR(255) NOT NULL,
+   LastName VARCHAR(255) NOT NULL,
+   PhoneNumber VARCHAR(20) NOT NULL,
+   StoreName VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE product
+(
+   	ProductID INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+   	Name VARCHAR(255) NOT NULL,
+   	Size INTEGER,
+Unit VARCHAR(30), 
+   	Quantity INTEGER NOT NULL,
+   	Weight INTEGER,
+	Brand VARCHAR(255),
+	Description VARCHAR(500),
+   	WholesalePrice REAL NOT NULL,
+   	RetailPrice REAL NOT NULL,
+   	ExpirationDate DATE,
+     CategoryID INTEGER,	
+WarehouseID INTEGER,
+   	FOREIGN KEY (CategoryID) REFERENCES category(CategoryID),
+   	FOREIGN KEY (WarehouseID) REFERENCES warehouse(WarehouseID)
+);
+     
+CREATE TABLE order_info
+(
+OrderID INTEGER primary key AUTO_INCREMENT,
+   	OrderDate DATE NOT NULL,
+   	ExpectedDelDate DATE NOT NULL,
+   	Status VARCHAR(200),
+   	SalesPerson VARCHAR(255) NOT NULL,
+StoreID INTEGER,
+   	FOREIGN KEY (StoreID) REFERENCES client(StoreID)
+);
+
+CREATE TABLE items
+(
+OrderID INTEGER,
+ProductID INTEGER,
+Quantity INTEGER,
+FOREIGN KEY (OrderID) REFERENCES order_info(OrderID),
+	FOREIGN KEY (ProductID) REFERENCES product(ProductID),
+PRIMARY KEY (OrderID, ProductID)
+);
