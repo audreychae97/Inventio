@@ -16,13 +16,20 @@ router.get('/mainpage', function (req, res, next) {
   res.render('mainpage', { title: 'Home' });
 });
 
-
 router.get('/profile', authenticationMiddleware(), function (req, res, next) {
   res.render('profile', { title: 'Profile' });
 });
 
 router.get('/addproduct', authenticationMiddleware(), function (req, res, next) {
   res.render('addproduct', { title: 'Add Products' });
+});
+
+// Need to somehow move this into its own .js file
+router.post('/addproduct', function (req, res, next) {
+  const db = require('../../db');
+  
+  res.render('addproduct');
+  console.log("/addproduct inside index.js");
 });
 
 router.get('/login', function (req, res, next) {
@@ -42,11 +49,6 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/register', function (req, res, next) {
   res.render('register', { title: 'Registration' });
-});
-
-router.post('/addproduct', function (req, res, next) {
-  res.render('addproduct');
-  console.log("/addproduct inside index.js");
 });
 
 console.log('Start');
