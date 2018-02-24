@@ -1,0 +1,10 @@
+body {
+	margin: 0;	
+}
+
+$theme-colors:(
+    "primary": #d95700
+);
+
+// Bootstrap Scss Files (or import only what needed)
+@import "node_modules/bootstrap/scss/bootstrap";
