@@ -13,15 +13,15 @@ var LocalStrategy = require('passport-local').Strategy;
 var MySQLStore = require('express-mysql-session')(session);
 var bcrypt = require('bcrypt');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+var index = require('./src/routes/index');
+var users = require('./src/routes/users');
 
 var app = express();
 
 require('dotenv').config();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, './src/views'));
 app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public
@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'src')));
 
 var options ={
   host: process.env.DB_HOST,
@@ -111,7 +111,7 @@ app.use(function(err, req, res, next) {
 const hbs = require('hbs');
 const fs = require('fs');
 
-const partialsDir = __dirname + '/views/partials';
+const partialsDir = __dirname + '/src/views/partials';
 
 const filenames = fs.readdirSync(partialsDir);
 
