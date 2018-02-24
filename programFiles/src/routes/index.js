@@ -99,7 +99,7 @@ router.post('/register', function (req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
 
-    const db = require('../db.js');
+    const db = require('../../db.js');
     // bcrypt hashes the password and saves them in the database
     bcrypt.hash(password, saltRounds, function (err, hash) {
       db.query('INSERT INTO users(username, email, password) VALUES(?,?,?)', [username, email, hash],
