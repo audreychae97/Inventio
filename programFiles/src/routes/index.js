@@ -27,8 +27,30 @@ router.get('/addproduct', authenticationMiddleware(), function (req, res, next) 
 // Need to somehow move this into its own .js file
 router.post('/addproduct', function (req, res, next) {
   const db = require('../../db');
-  
-  res.render('addproduct');
+  var prodName = req.body.inputName;
+  var quantity = req.body.quantityID;
+  var category = 1;//req.body.selectCategory;
+  var weight = req.body.weightID;
+  var desc = req.body.descriptionID;
+  var wholesalePr = req.body.wholesaleID;
+  var retailPr = req.body.retailID;
+
+
+  db.query('INSERT INTO product (name, quantity, categoryID, weight, description, wholesalePrice, retailPrice)' +
+   'VALUES (?, ?, ?, ?, ?, ?, ?)', [prodName, quantity, category, weight, desc, wholesalePr, retailPr],
+    function (error, results, fileds) {
+      if (error) throw error;
+      console.log("submitted??");
+    });
+
+  db.query('SELECT * FROM product', function (error, results, fields) {
+    if (error) throw error;
+    res.render('addproduct', {
+      productTable: results
+    });
+  });
+
+  //res.render('addproduct');
   console.log("/addproduct inside index.js");
 });
 
