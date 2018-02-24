@@ -44,7 +44,12 @@ router.get('/register', function(req, res, next) {
   res.render('register', { title: 'Registration' });
 });
 
-  console.log('count the times this executes!!!');
+router.post('/addproduct', function (req, res, next) {
+  res.render('/');
+  console.log("/addproduct inside index.js");
+});
+
+  console.log('Start');
 
   router.post('/register', function(req, res, next) {
 
