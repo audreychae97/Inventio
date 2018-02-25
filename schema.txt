@@ -36,7 +36,7 @@ CREATE TABLE product
    	ProductID INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
    	Name VARCHAR(255) NOT NULL,
    	Size INTEGER,
-Unit VARCHAR(30), 
+	Unit VARCHAR(30), 
    	Quantity INTEGER NOT NULL,
    	Weight INTEGER,
 	Brand VARCHAR(255),
@@ -44,8 +44,8 @@ Unit VARCHAR(30),
    	WholesalePrice REAL NOT NULL,
    	RetailPrice REAL NOT NULL,
    	ExpirationDate DATE,
-     CategoryID INTEGER,	
-WarehouseID INTEGER,
+     	CategoryID INTEGER,	
+	WarehouseID INTEGER,
    	FOREIGN KEY (CategoryID) REFERENCES category(CategoryID),
    	FOREIGN KEY (WarehouseID) REFERENCES warehouse(WarehouseID)
 );
@@ -63,10 +63,10 @@ StoreID INTEGER,
 
 CREATE TABLE items
 (
-OrderID INTEGER,
-ProductID INTEGER,
-Quantity INTEGER,
-FOREIGN KEY (OrderID) REFERENCES order_info(OrderID),
+	OrderID INTEGER,
+	ProductID INTEGER,
+	Quantity INTEGER,
+	FOREIGN KEY (OrderID) REFERENCES order_info(OrderID),
 	FOREIGN KEY (ProductID) REFERENCES product(ProductID),
 PRIMARY KEY (OrderID, ProductID)
 );
