@@ -43,14 +43,14 @@ router.post('/addproduct', function (req, res, next) {
       console.log("submitted??");
     });
 
-  db.query('SELECT * FROM product', function (error, results, fields) {
-    if (error) throw error;
-    res.render('addproduct', {
-      productTable: results
-    });
-  });
+  // db.query('SELECT * FROM product', function (error, results, fields) {
+  //   if (error) throw error;
+  //   res.render('addproduct', {
+  //     productTable: results
+  //   });
+  // });
 
-  //res.render('addproduct');
+  res.render('addproduct');
   console.log("/addproduct inside index.js");
 });
 
