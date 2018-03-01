@@ -1,4 +1,5 @@
 var express = require('express');
+//const db = require('../../db'); figure out how to make this global
 var router = express.Router();
 var expressValidator = require('express-validator');
 var passport = require('passport');
@@ -21,10 +22,17 @@ router.get('/profile', authenticationMiddleware(), function (req, res, next) {
 });
 
 router.get('/addproduct', authenticationMiddleware(), function (req, res, next) {
-  res.render('addproduct', { title: 'Add Products' });
+  const db = require('../../db');  
+  db.query('SELECT * FROM product', function (error, results, fields) {
+    if (error) throw error;
+    res.render('addproduct', {
+      productTable: results
+    });
+    console.log(results);    
+  });
+  //res.render('addproduct', { title: 'Add Products' });
 });
 
-// Need to somehow move this into its own .js file
 router.post('/addproduct', function (req, res, next) {
   const db = require('../../db');
   var prodName = req.body.inputName;
@@ -40,22 +48,19 @@ router.post('/addproduct', function (req, res, next) {
    'VALUES (?, ?, ?, ?, ?, ?, ?)', [prodName, quantity, category, weight, desc, wholesalePr, retailPr],
     function (error, results, fileds) {
       if (error) throw error;
-      console.log("submitted??");
+      console.log("submitted");
     });
 
-  db.query('SELECT * FROM product', function (error, results, fields) {
-    if (error) throw error;
-    res.render('addproduct', {
-      productTable: results
-    });
-  });
-
-  //res.render('addproduct');
+  res.render('addproduct');
   console.log("/addproduct inside index.js");
 });
 
 router.get('/login', function (req, res, next) {
   res.render('login', { title: 'Login' });
+});
+
+router.get('/pie', function (req, res, next) {
+  res.render('about', { title: 'About' });
 });
 
 router.get('/logout', function (req, res, next) {

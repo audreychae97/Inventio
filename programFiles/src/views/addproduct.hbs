@@ -6,12 +6,12 @@
 </div>
 
 <div class="container">
-
-    <form class="needs-validation" action="/addproduct" method="post"> <!-- novalidate> -->
+    <form class="needs-validation" action="/addproduct" method="post">
+        <!-- novalidate> -->
         <div class="form-group">
             <div class="col-6">
                 <label for="inputName">Product</label>
-                <input type="text" class="form-control" name="inputName" placeholder="Enter Product Name"  maxlength="255" required>
+                <input type="text" class="form-control" name="inputName" placeholder="Enter Product Name" maxlength="255" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -32,10 +32,11 @@
                 </select>
             </div>
         </div>
-                <div class="form-group">
+        <div class="form-group">
             <div class="col-6">
                 <label for="quantityID">Initial Quantity</label>
-                <input type="number" class="form-control" name="quantityID" placeholder="Enter how much youre adding to stock now (can be 0)" maxlength="10" required>
+                <input type="number" class="form-control" name="quantityID" placeholder="Enter how much youre adding to stock now (can be 0)"
+                    maxlength="10" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -72,7 +73,8 @@
         <div class="form-group">
             <div class="col-6">
                 <label for="wholesaleID">Wholesale Price</label>
-                <input type="number" class="form-control" name="wholesaleID" placeholder="Enter the amount spent per unit" maxlength="10" required>
+                <input type="number" class="form-control" name="wholesaleID" placeholder="Enter the amount spent per unit" maxlength="10"
+                    required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -84,7 +86,8 @@
         <div class="form-group">
             <div class="col-6">
                 <label for="retailID">Retail Price</label>
-                <input type="number" class="form-control" name="retailID" placeholder="Enter how much this item is sold for" maxlength="10" required>
+                <input type="number" class="form-control" name="retailID" placeholder="Enter how much this item is sold for" maxlength="10"
+                    required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -94,7 +97,7 @@
             </div>
         </div>
         <button type="submit" class="btn btn-secondary" disabled>Clear</button>
-        <button type="submit" class="btn btn-primary">Submit</button>        
+        <button type="submit" class="btn btn-primary">Submit</button>
         <!-- <button type="button" class="btn btn-secondary">Clear Fields</button> -->
 
     </form>
@@ -116,16 +119,18 @@
 
                     <tr>
                         <th scope="row">1</th>
-                        <td>Apples</td>
-                        <td>Size</td>
-                        <td>Quantity</td>
-                        <td>Description</td>
-                        <td>Category</td>
+                        {{#each productTable}}
+                        <td>{{ProductID}}</td>
+                        <td>{{Name}}</td>
+                        <td>{{Size}}</td>
+                        <td>{{Quantity}}</td>
+                        <td>{{Description}}</td>
+                        <td>{{Category}}</td>
+                    </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-
-{{> footer-end }}
+<script src="C:\Users\nicho\Documents\Projects\475Databases\Inventio\programFiles\src\routes\addproduct.js"></script> {{> footer-end }}
