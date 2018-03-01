@@ -74,8 +74,12 @@ router.get('/login', function (req, res, next) {
   res.render('login', { title: 'Login' });
 });
 
-router.get('/pie', function (req, res, next) {
+router.get('/about', function (req, res, next) {
   res.render('about', { title: 'About' });
+});
+
+router.get('/createorder', function (req, res, next) {
+  res.render('createorder', { title: 'Create Order' });
 });
 
 router.get('/logout', function (req, res, next) {

@@ -113,12 +113,12 @@
                         <th scope="col">Quantity</th>
                         <th scope="col">Description</th>
                         <th scope="col">Category</th>
+                        <th scope="col">Add</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr>
-                        <th scope="row">1</th>
                         {{#each productTable}}
                         <td>{{ProductID}}</td>
                         <td>{{Name}}</td>
@@ -126,6 +126,7 @@
                         <td>{{Quantity}}</td>
                         <td>{{Description}}</td>
                         <td>{{Category}}</td>
+                        <td><button type="button" class="btn btn-primary">button</button></td>
                     </tr>
                     {{/each}}
                 </tbody>
