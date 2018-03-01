@@ -22,13 +22,13 @@ router.get('/profile', authenticationMiddleware(), function (req, res, next) {
 });
 
 router.get('/addproduct', authenticationMiddleware(), function (req, res, next) {
-  const db = require('../../db');  
+  const db = require('../../db');
   db.query('SELECT * FROM product', function (error, results, fields) {
     if (error) throw error;
     res.render('addproduct', {
       productTable: results
     });
-    console.log(results);    
+    console.log("After get??");
   });
   //res.render('addproduct', { title: 'Add Products' });
 });
@@ -45,14 +45,29 @@ router.post('/addproduct', function (req, res, next) {
 
 
   db.query('INSERT INTO product (name, quantity, categoryID, weight, description, wholesalePrice, retailPrice)' +
-   'VALUES (?, ?, ?, ?, ?, ?, ?)', [prodName, quantity, category, weight, desc, wholesalePr, retailPr],
+    'VALUES (?, ?, ?, ?, ?, ?, ?)', [prodName, quantity, category, weight, desc, wholesalePr, retailPr],
     function (error, results, fileds) {
       if (error) throw error;
       console.log("submitted");
     });
 
-  res.render('addproduct');
-  console.log("/addproduct inside index.js");
+  //Using the same query from addproduct get method. This is bad, need to reuse the method, so
+  //need to figure our how to move the queries to another .js file or something because this is varry varry
+  //bad practice, plus messy and hard to follow. But I wanted to get it to work so i just have it here fo now
+  // /rant
+  console.log("###################################################################");  
+  console.log("###################################################################");  
+  console.log("###################################################################");    
+  console.log("########  DOING A BAD THING HERE! Read comment in index.js#  ######");
+  console.log("###################################################################");  
+  console.log("###################################################################");    
+  db.query('SELECT * FROM product', function (error, results, fields) {
+    if (error) throw error;
+    res.render('addproduct', {
+      productTable: results
+    });
+    console.log("After get??");
+  });
 });
 
 router.get('/login', function (req, res, next) {
