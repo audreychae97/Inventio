@@ -6,6 +6,10 @@ var passport = require('passport');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+
+// testing the dammm functionality of stupid git hub
+
+
 /* GET home page. */
 router.get('/', function (req, res) {
   console.log(req.user);
@@ -53,12 +57,12 @@ router.post('/addproduct', function (req, res, next) {
   //need to figure our how to move the queries to another .js file or something because this is varry varry
   //bad practice, plus messy and hard to follow. But I wanted to get it to work so i just have it here fo now
   // /rant
-  console.log("###################################################################");  
-  console.log("###################################################################");  
-  console.log("###################################################################");    
+  console.log("###################################################################");
+  console.log("###################################################################");
+  console.log("###################################################################");
   console.log("########  DOING A BAD THING HERE! Read comment in index.js#  ######");
-  console.log("###################################################################");  
-  console.log("###################################################################");    
+  console.log("###################################################################");
+  console.log("###################################################################");
   db.query('SELECT * FROM product', function (error, results, fields) {
     if (error) throw error;
     res.render('addproduct', {
