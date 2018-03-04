@@ -28,16 +28,14 @@ router.get('/addproduct', authenticationMiddleware(), function (req, res, next) 
     res.render('addproduct', {
       productTable: results
     });
-    console.log("After get??");
   });
-  //res.render('addproduct', { title: 'Add Products' });
 });
 
 router.post('/addproduct', function (req, res, next) {
   const db = require('../../db');
   var prodName = req.body.inputName;
   var quantity = req.body.quantityID;
-  var category = 1;//req.body.selectCategory;
+  var category = 1;//req.body.selectCategory;;
   var weight = req.body.weightID;
   var desc = req.body.descriptionID;
   var wholesalePr = req.body.wholesaleID;
