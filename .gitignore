@@ -1,2 +1,3 @@
 programFiles/node_modules/
 programFiles/.env
+.gitignore
