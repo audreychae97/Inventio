@@ -19,6 +19,9 @@
 <body>
   <div class="container-fluid">
     <div class="row">
+      <input type = "text" placeholder="Client Name" required>
+      </div>
+      <div class="row">
         <div class="col-6">
 
             <div class="table-responsive">
@@ -53,7 +56,42 @@
                 </table>
             </div>
         </div>
+          <div class="col-6">
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="orderTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            {{!-- <th scope="col">ProductId</th> --}}
+                            <th scope="col">Quantity</th>                            
+                            <th scope="col">Name</th>
+                            <th scope="col">Size</th>
+                            {{!-- <th scope="col">Description</th> --}}
+                            <th scope="col">Category</th>
+                            <th scope="col">Add</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            {{#each productTable}}
+                            {{!-- <td>{{ProductID}}</td> --}}
+                            <td>{{Quantity}}</td>
+                            <td>{{Name}}</td>
+                            <td>{{Size}}</td>
+                            {{!-- <td>{{Description}}</td> --}}
+                            <td>{{Category}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" onclick="shittyMethod({{ProductID}})">button</button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
+        </div>
+      
     </div>
 
 
@@ -67,10 +105,16 @@
 
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-
+    <script src="../js/createOrder.js"> </script>
     <script>
         $(document).ready(function () {
             $('#example').DataTable();
+        });
+        console.log("running yo");
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#orderTable').DataTable();
         });
         console.log("running yo");
     </script>
