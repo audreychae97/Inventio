@@ -21,8 +21,6 @@ require('datatables.net-bs4')($);
 // End datatables reqs.
 
 
-
-
 /* GET home page. */
 router.get('/', function (req, res) {
   console.log(req.user);
@@ -94,7 +92,16 @@ router.get('/about', function (req, res, next) {
 });
 
 router.get('/createorder', function (req, res, next) {
-  res.render('createorder', { title: 'Create Order' });
+
+  const db = require('../../db');
+  db.query('SELECT * FROM product', function (error, results, fields) {
+    if (error) throw error;
+    res.render('createorder', {
+      productTable: results
+    });
+  });
+
+  //res.render('createorder', { title: 'Create Order' });
 });
 
 router.get('/logout', function (req, res, next) {
