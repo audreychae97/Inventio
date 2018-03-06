@@ -1,139 +1,176 @@
-{{> header }}
-<script type="text/javascript" src="../routes/addproduct.js"></script>
-<div class="jumbotron">
-    <h1 class="display-4">Add a new product type</h1>
-    <p class="lead">Adding a new type of product to inventory.</p>
-</div>
+<!doctype html>
+<html class="no-js" lang="">
 
-<div class="container">
-    <form class="needs-validation" action="/addproduct" method="post">
-        <!-- novalidate> -->
-        <div class="form-group">
-            <div class="col-6">
-                <label for="inputName">Product</label>
-                <input type="text" class="form-control" name="inputName" placeholder="Enter Product Name" maxlength="255" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please provide a valid product name.
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-6">
-                <label for="selectCategory">Category</label>
-                <select class="form-control" name="selectCategory" required>
-                    <option>Food</option>
-                    <option>Drink</option>
-                    <option>Space</option>
-                    <option>Ocean</option>
-                    <option>Subterranean</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-6">
-                <label for="quantityID">Initial Quantity</label>
-                <input type="number" class="form-control" name="quantityID" placeholder="Enter how much youre adding to stock now (can be 0)"
-                    maxlength="10" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please provide a Quantity.
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-6">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-                <label for="weightID">Weight</label>
-                <input type="number" class="form-control" name="weightID" placeholder="Enter Weight Information" maxlength="11" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please provide a valid weight.
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-6">
-                <label for="descriptionID">Product Description</label>
-                <input type="text" class="form-control" name="descriptionID" placeholder="Enter a Description" maxlength="500" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please provide a brief description of the product.
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-6">
-                <label for="wholesaleID">Wholesale Price</label>
-                <input type="number" class="form-control" name="wholesaleID" placeholder="Enter the amount spent per unit" maxlength="10"
-                    required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please provide a wholesale price.
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-6">
-                <label for="retailID">Retail Price</label>
-                <input type="number" class="form-control" name="retailID" placeholder="Enter how much this item is sold for" maxlength="10"
-                    required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please provide a sale price.
-                </div>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-secondary" disabled>Clear</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <!-- <button type="button" class="btn btn-secondary">Clear Fields</button> -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap4.min.css" rel="stylesheet"/> 
 
-    </form>
-    <br>
-    <div class="row">
-        <div class="col-md-6 mt-4 text center">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">ProductId</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Size</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Add</th>
-                    </tr>
-                </thead>
-                <tbody>
+    {{!-- Header --}}
+    {{> header }}
+</head>
 
-                    <tr>
-                        {{#each productTable}}
-                        <td>{{ProductID}}</td>
-                        <td>{{Name}}</td>
-                        <td>{{Size}}</td>
-                        <td>{{Quantity}}</td>
-                        <td>{{Description}}</td>
-                        <td>{{Category}}</td>
-                        <td><button type="button" class="btn btn-primary">button</button></td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+<body>
+    {{!-- Here up needs to be added to the head of each .hbs --}}
+
+    <script type="text/javascript" src="../routes/addproduct.js"></script>
+    <div class="jumbotron">
+        <h1 class="display-4">Add a new product type</h1>
+        <p class="lead">Adding a new type of product to inventory.</p>
+    </div>
+
+    <div class="container">
+        <form class="needs-validation" action="/addproduct" method="post">
+            <!-- novalidate> -->
+            <div class="form-group">
+                <div class="col-6">
+                    <label for="inputName">Product</label>
+                    <input type="text" class="form-control" name="inputName" placeholder="Enter Product Name" maxlength="255" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please provide a valid product name.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-6">
+                    <label for="selectCategory">Category</label>
+                    <select class="form-control" name="selectCategory" required>
+                        <option>Food</option>
+                        <option>Drink</option>
+                        <option>Space</option>
+                        <option>Ocean</option>
+                        <option>Subterranean</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-6">
+                    <label for="quantityID">Initial Quantity</label>
+                    <input type="number" class="form-control" name="quantityID" placeholder="Enter how much youre adding to stock now (can be 0)"
+                        maxlength="10" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please provide a Quantity.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-6">
+
+                    <label for="weightID">Weight</label>
+                    <input type="number" class="form-control" name="weightID" placeholder="Enter Weight Information" maxlength="11" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please provide a valid weight.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-6">
+                    <label for="descriptionID">Product Description</label>
+                    <input type="text" class="form-control" name="descriptionID" placeholder="Enter a Description" maxlength="500" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please provide a brief description of the product.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-6">
+                    <label for="wholesaleID">Wholesale Price</label>
+                    <input type="number" class="form-control" name="wholesaleID" placeholder="Enter the amount spent per unit" maxlength="10"
+                        required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please provide a wholesale price.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-6">
+                    <label for="retailID">Retail Price</label>
+                    <input type="number" class="form-control" name="retailID" placeholder="Enter how much this item is sold for" maxlength="10"
+                        required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please provide a sale price.
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-secondary" disabled>Clear</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <!-- <button type="button" class="btn btn-secondary">Clear Fields</button> -->
+
+        </form>
+        <br>
+        <div class="row">
+            <div class="col-md-6 mt-4 text center">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ProductId</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Size</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Add</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            {{#each productTable}}
+                            <td>{{ProductID}}</td>
+                            <td>{{Name}}</td>
+                            <td>{{Size}}</td>
+                            <td>{{Quantity}}</td>
+                            <td>{{Description}}</td>
+                            <td>{{Category}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">button</button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-<script> console.log("yo")</script>
-<script src="addproduct.js"></script>
-{{> footer-end }}
+    <script> console.log("yo")</script>
+    <script src="addproduct.js"></script> 
+    
+    {{> footer-end }}
+
+    {{!-- need to post on every page --}}
+     {{!-- Needed for bootstrap --}}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

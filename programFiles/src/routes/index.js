@@ -7,7 +7,20 @@ var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 
-// testing the dammm functionality of stupid git hub
+// Needed to get datatables  to run
+var jsdom = require('jsdom');
+
+const {JSDOM} = jsdom;
+const {document} = (new JSDOM('<!doctype html><html><body></body></html>')).window;
+global.document = document;
+global.window = document.defaultView;
+var jquery = require('jquery');
+
+var $ = require('jquery');
+require('datatables.net-bs4')($);
+// End datatables reqs.
+
+
 
 
 /* GET home page. */
