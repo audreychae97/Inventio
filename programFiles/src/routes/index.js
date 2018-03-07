@@ -10,8 +10,8 @@ const saltRounds = 10;
 // Needed to get datatables  to run
 var jsdom = require('jsdom');
 
-const {JSDOM} = jsdom;
-const {document} = (new JSDOM('<!doctype html><html><body></body></html>')).window;
+const { JSDOM } = jsdom;
+const { document } = (new JSDOM('<!doctype html><html><body></body></html>')).window;
 global.document = document;
 global.window = document.defaultView;
 var jquery = require('jquery');
@@ -96,13 +96,33 @@ router.get('/createorder', function (req, res, next) {
   const db = require('../../db');
   db.query('SELECT * FROM product', function (error, results, fields) {
     if (error) throw error;
+
     res.render('createorder', {
       productTable: results
     });
   });
 
-  //res.render('createorder', { title: 'Create Order' });
+  // res.render('createorder', { title: 'Create Order' });
 });
+
+// router.get('/createorder', function (req, res, next) {
+
+//   const db = require('../../db');
+//   var resultsYO;
+//   db.query('SELECT * FROM product', function (error, results, fields) {
+//     if (error) throw error;
+//     resultsYO = results;
+
+//     res.render('createorder', {
+//       productTable: resultsYO
+//     });
+//     next();
+//   });
+//   // console.log(resultsYO);
+//   console.log("Session: %j", resultsYO);
+// });
+
+
 
 router.get('/logout', function (req, res, next) {
   req.logout();

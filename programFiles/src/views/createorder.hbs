@@ -13,85 +13,106 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap4.min.css" rel="stylesheet"
-    /> {{> header }}
+    /> {{!-- maybe --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" /> {{> header }}
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      <input type = "text" placeholder="Client Name" required>
-      </div>
-      <div class="row">
-        <div class="col-6">
 
-            <div class="table-responsive">
-                <table class="table table-bordered" id="example" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            {{!-- <th scope="col">ProductId</th> --}}
-                            <th scope="col">Quantity</th>                            
-                            <th scope="col">Name</th>
-                            <th scope="col">Size</th>
-                            {{!-- <th scope="col">Description</th> --}}
-                            <th scope="col">Category</th>
-                            <th scope="col">Add</th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-                        <tr>
-                            {{#each productTable}}
-                            {{!-- <td>{{ProductID}}</td> --}}
-                            <td>{{Quantity}}</td>
-                            <td>{{Name}}</td>
-                            <td>{{Size}}</td>
-                            {{!-- <td>{{Description}}</td> --}}
-                            <td>{{Category}}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">button</button>
-                            </td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+    <div class="container-fluid">
+
+        <div class="row">
+            {{!-- Left-half side of the page --}}
+            <div class="col-6">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="example" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                {{!--
+                                <th scope="col">ProductId</th> --}}
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Size</th>
+                                {{!--
+                                <th scope="col">Description</th> --}}
+                                <th scope="col">Category</th>
+                                <th scope="col">Add</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                {{#each productTable}} {{!--
+                                <td>{{ProductID}}</td> --}}
+                                <td>{{Quantity}}</td>
+                                <td>{{Name}}</td>
+                                <td>{{Size}}</td>
+                                {{!--
+                                <td>{{Description}}</td> --}}
+                                <td>{{Category}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary">button</button>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-6">
+                {{!-- Right half side of the page --}} {{!-- SPACE BETWEEN TABLE AND CARD, TODO: FIX --}}
+                <br>
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Customer</h4>
+
+                        <div class="js-example-basic-single" name="test">
+                            <option value="dafuq">John Smith - Amazon</option>
+                            <option value="herro">Tran Le - Self Employeed</option>
+                            <option value="herro">A homeless guy - Crack</option>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="orderTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                {{!--
+                                <th scope="col">ProductId</th> --}}
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Size</th>
+                                {{!--
+                                <th scope="col">Description</th> --}}
+                                <th scope="col">Category</th>
+                                <th scope="col">Add</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                {{#each productTable}} {{!--
+                                <td>{{ProductID}}</td> --}}
+                                <td>{{Quantity}}</td>
+                                <td>{{Name}}</td>
+                                <td>{{Size}}</td>
+                                {{!--
+                                <td>{{Description}}</td> --}}
+                                <td>{{Category}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" onclick="shittyMethod({{ProductID}})">button</button>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-          <div class="col-6">
 
-            <div class="table-responsive">
-                <table class="table table-bordered" id="orderTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            {{!-- <th scope="col">ProductId</th> --}}
-                            <th scope="col">Quantity</th>                            
-                            <th scope="col">Name</th>
-                            <th scope="col">Size</th>
-                            {{!-- <th scope="col">Description</th> --}}
-                            <th scope="col">Category</th>
-                            <th scope="col">Add</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr>
-                            {{#each productTable}}
-                            {{!-- <td>{{ProductID}}</td> --}}
-                            <td>{{Quantity}}</td>
-                            <td>{{Name}}</td>
-                            <td>{{Size}}</td>
-                            {{!-- <td>{{Description}}</td> --}}
-                            <td>{{Category}}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary" onclick="shittyMethod({{ProductID}})">button</button>
-                            </td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        </div>
-      
     </div>
 
 
@@ -105,18 +126,22 @@
 
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../js/createOrder.js"> </script>
+    <script src="../js/createOrder.js"> </script> {{!-- TEMP --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#example').DataTable();
         });
-        console.log("running yo");
     </script>
     <script>
         $(document).ready(function () {
             $('#orderTable').DataTable();
         });
-        console.log("running yo");
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2();
+        });
     </script>
 
 </body>
