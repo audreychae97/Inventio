@@ -91,6 +91,19 @@ router.get('/about', function (req, res, next) {
   res.render('about', { title: 'About' });
 });
 
+//method that retrieves information for one product by ID 
+//TODO: separate the searching of a certain product by ID into a separate method and pass into this .get as 2nd param.. 
+
+router.get('/createOrder/:productID', function(req, res, next) {
+    const db = require('../../db');
+    db.query('SELECT * FROM product WHERE ProductID = ?', req.params.productID, function (error, results, fields) {
+    if (error) throw error;
+    console.log(results[0]);
+    res.json(results[0]);
+    //res.send(results[0]);
+  });
+});
+
 router.get('/createorder', function (req, res, next) {
 
   const db = require('../../db');
@@ -121,8 +134,6 @@ router.get('/createorder', function (req, res, next) {
 //   // console.log(resultsYO);
 //   console.log("Session: %j", resultsYO);
 // });
-
-
 
 router.get('/logout', function (req, res, next) {
   req.logout();
