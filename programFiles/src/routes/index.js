@@ -94,9 +94,9 @@ router.get('/about', function (req, res, next) {
 //method that retrieves information for one product by ID 
 //TODO: separate the searching of a certain product by ID into a separate method and pass into this .get as 2nd param.. 
 
-router.get('/createOrder/:productID', function(req, res, next) {
-    const db = require('../../db');
-    db.query('SELECT * FROM product WHERE ProductID = ?', req.params.productID, function (error, results, fields) {
+router.get('/createOrder/:productID', function (req, res, next) {
+  const db = require('../../db');
+  db.query('SELECT * FROM product WHERE ProductID = ?', req.params.productID, function (error, results, fields) {
     if (error) throw error;
     console.log(results[0]);
     res.json(results[0]);
@@ -104,19 +104,29 @@ router.get('/createOrder/:productID', function(req, res, next) {
   });
 });
 
-router.get('/createorder', function (req, res, next) {
-
+function getProducts(req, res, next) {
   const db = require('../../db');
   db.query('SELECT * FROM product', function (error, results, fields) {
     if (error) throw error;
-
-    res.render('createorder', {
-      productTable: results
-    });
+    req.productTable = results;
+    return next();
   });
+}
+
+function renderCreateOrderPage(req, res){
+  res.render('createorder', {
+    productTable: req.productTable
+  });
+}
+
+router.get('/createorder', getProducts, renderCreateOrderPage);
+
+
+  
+
 
   // res.render('createorder', { title: 'Create Order' });
-});
+
 
 // router.get('/createorder', function (req, res, next) {
 

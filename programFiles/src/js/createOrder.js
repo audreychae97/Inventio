@@ -23,6 +23,18 @@ function shittyMethod(productID){
     request.send();
 }
 
+// function getClientList(){
+//     console.log("inside getClientList");
+//     var address = `http://127.0.0.1:3000/createOrder/client`;
+//     request.open('GET', address, true);
+
+//     request.onload = function(){
+//         console.log("inside inner fcn??");
+        
+//     }
+    
+// }
+
 
 //document.getElementById("demo").innerHTML = obj.name + ", " + obj.age();
 
