@@ -91,6 +91,10 @@ router.get('/about', function (req, res, next) {
   res.render('about', { title: 'About' });
 });
 
+router.get('/inventory', function (req, res, next) {
+  res.render('inventory', { title: 'Inventory' });
+});
+
 //method that retrieves information for one product by ID 
 //TODO: separate the searching of a certain product by ID into a separate method and pass into this .get as 2nd param.. 
 
@@ -113,13 +117,23 @@ function getProducts(req, res, next) {
   });
 }
 
-function renderCreateOrderPage(req, res){
-  res.render('createorder', {
-    productTable: req.productTable
+function getClients(req, res, next){
+  const db = require('../../db');
+  db.query('SELECT * FROM client', function (error, results, fields) {
+    if (error) throw error;
+    req.clientTable = results;
+    return next();
   });
 }
 
-router.get('/createorder', getProducts, renderCreateOrderPage);
+function renderCreateOrderPage(req, res){
+  res.render('createorder', {
+    productTable: req.productTable, 
+    clientTable: req.clientTable
+  });
+}
+
+router.get('/createorder', getProducts, getClients, renderCreateOrderPage);
 
 
   

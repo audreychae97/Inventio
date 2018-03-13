@@ -68,12 +68,13 @@
                     <div class="card-body">
                         <h4>Customer</h4>
 
-                        <div class="js-example-basic-single" name="test">
-                            <option value="dafuq">John Smith - Amazon</option>
-                            <option value="herro">Tran Le - Self Employeed</option>
-                            <option value="herro">A homeless guy - Crack</option>
-
+                        <div class="js-example-basic-single" id = "clientList" name="ClientSelector">
+                            {{#each clientTable}}
+                            <option value= {{StoreID}}>{{StoreName}} - {{FirstName}} {{LastName}} </option>
+                            {{/each}}
+                            
                         </div>
+
                     </div>
                 </div>
                 <br>
@@ -95,14 +96,14 @@
                         <tbody>
 
                             <tr>
-                                {{#each productTable}} {{!--
+                                {{#each clientTable}} {{!--
                                 <td>{{ProductID}}</td> --}}
-                                <td>{{Quantity}}</td>
-                                <td>{{Name}}</td>
-                                <td>{{Size}}</td>
+                                <td>{{FirstName}}</td>
+                                <td>{{LastName}}</td>
+                                <td>{{StoreName}}</td>
                                 {{!--
                                 <td>{{Description}}</td> --}}
-                                <td>{{Category}}</td>
+                                <td>{{PhoneNumber}}</td>
                                 <td>
                                     <button type="button" class="btn btn-primary" onclick="shittyMethod({{ProductID}})">button</button>
                                 </td>
