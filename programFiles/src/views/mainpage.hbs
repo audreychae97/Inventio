@@ -13,10 +13,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap4.min.css" rel="stylesheet"
-  /> {{!-- Header --}} {{> header }}
+  /> {{!-- Header --}}
+
+  <link rel="stylesheet" type="text/css" href="sidebar.css">
+
+   {{> header }}
 </head>
 
 <body>
+
   <div class="container">
     <div class="jumbotron">
       <h1 class="display-3">InvenTío</h1>
@@ -59,6 +64,13 @@
     crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function () {
+      $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+      });
+  });
+    </script>
 </body>
 
 </html>

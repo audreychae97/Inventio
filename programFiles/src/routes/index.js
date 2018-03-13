@@ -48,21 +48,23 @@ router.get('/addproduct', authenticationMiddleware(), function (req, res, next) 
 
 router.post('/addproduct', function (req, res, next) {
   const db = require('../../db');
+
   var prodName = req.body.inputName;
   var quantity = req.body.quantityID;
   var category = 1;//req.body.selectCategory;;
-  var weight = req.body.weightID;
+  var size = req.body.sizeID;
+  var unit = req.body.selectUnit;
   var desc = req.body.descriptionID;
   var wholesalePr = req.body.wholesaleID;
   var retailPr = req.body.retailID;
 
-
-  db.query('INSERT INTO product (name, quantity, categoryID, weight, description, wholesalePrice, retailPrice)' +
-    'VALUES (?, ?, ?, ?, ?, ?, ?)', [prodName, quantity, category, weight, desc, wholesalePr, retailPr],
+  console.log(unit);
+  db.query('INSERT INTO product (name, quantity, categoryID, size, unit, description, wholesalePrice, retailPrice)' +
+    'VALUES (?, ?, ?, ?,?, ?, ?, ?)', [prodName, quantity, category, size, unit, desc, wholesalePr, retailPr],
     function (error, results, fileds) {
       if (error) throw error;
       console.log("submitted");
-    });
+  });
 
   //Using the same query from addproduct get method. This is bad, need to reuse the method, so
   //need to figure our how to move the queries to another .js file or something because this is varry varry
@@ -92,8 +94,8 @@ router.get('/about', function (req, res, next) {
 });
 
 
-//method that retrieves information for one product by ID 
-//TODO: separate the searching of a certain product by ID into a separate method and pass into this .get as 2nd param.. 
+//method that retrieves information for one product by ID
+//TODO: separate the searching of a certain product by ID into a separate method and pass into this .get as 2nd param..
 
 router.get('/createOrder/:productID', function (req, res, next) {
   const db = require('../../db');
@@ -126,7 +128,7 @@ function getClients(req, res, next){
 
 function renderCreateOrderPage(req, res){
   res.render('createorder', {
-    productTable: req.productTable, 
+    productTable: req.productTable,
     clientTable: req.clientTable
   });
 }
@@ -149,7 +151,7 @@ router.get('/inventory', getProducts, renderInventoryPage);
 /////////////////////////////////////////////////////////////
 
 
-  
+
 
 
   // res.render('createorder', { title: 'Create Order' });

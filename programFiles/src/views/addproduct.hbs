@@ -12,7 +12,7 @@
     <!-- Place favicon.ico in the root directory -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap4.min.css" rel="stylesheet"/> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
 
     {{!-- Header --}}
     {{> header }}
@@ -69,15 +69,22 @@
             </div>
             <div class="form-group">
                 <div class="col-6">
-
-                    <label for="weightID">Weight</label>
-                    <input type="number" class="form-control" name="weightID" placeholder="Enter Weight Information" maxlength="11" required>
+                    <label for="weightID">Size</label>
+                    <input type="number" class="form-control" name="sizeID" placeholder="Enter Size" maxlength="11" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
                     <div class="invalid-feedback">
                         Please provide a valid weight.
                     </div>
+                    <label for="selectUnit">Unit</label>
+                    <select class="form-control" name="selectUnit" required>
+                        <option value = "Oz">Oz</option>
+                        <option value = "L">L</option>
+                        <option value = "Lb">Lb</option>
+                        <option value = "Kg">Kg</option>
+                        <option value = "mL">mL</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -95,7 +102,7 @@
             <div class="form-group">
                 <div class="col-6">
                     <label for="wholesaleID">Wholesale Price</label>
-                    <input type="number" class="form-control" name="wholesaleID" placeholder="Enter the amount spent per unit" maxlength="10"
+                    <input type="number" step="any" class="form-control" name="wholesaleID" placeholder="Enter the amount spent per unit" maxlength="10"
                         required>
                     <div class="valid-feedback">
                         Looks good!
@@ -108,7 +115,7 @@
             <div class="form-group">
                 <div class="col-6">
                     <label for="retailID">Retail Price</label>
-                    <input type="number" class="form-control" name="retailID" placeholder="Enter how much this item is sold for" maxlength="10"
+                    <input type="number" step="any" class="form-control" name="retailID" placeholder="Enter how much this item is sold for" maxlength="10"
                         required>
                     <div class="valid-feedback">
                         Looks good!
@@ -159,8 +166,8 @@
         </div>
     </div>
     <script> console.log("yo")</script>
-    <script src="addproduct.js"></script> 
-    
+    <script src="addproduct.js"></script>
+
     {{> footer-end }}
 
     {{!-- need to post on every page --}}
