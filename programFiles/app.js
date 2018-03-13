@@ -33,11 +33,11 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'src')));
 
-var options ={
+var options = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database : process.env.DB_NAME
+  database: process.env.DB_NAME
 };
 
 var sessionStore = new MySQLStore(options);
@@ -55,13 +55,14 @@ app.use(passport.session());
 
 // a function that allow us to display webpages pages
 // according to the user status(login or logout)
-app.use(function(req,res,next){
-    res.locals.isAuthenticated = req.isAuthenticated();
-    next();
+app.use(function (req, res, next) {
+  res.locals.isAuthenticated = req.isAuthenticated();
+  next();
 });
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
   next();
 });
 
@@ -69,23 +70,23 @@ app.use('/', index);
 app.use('/users', users);
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-      console.log(username);
-      console.log(password);
+  function (username, password, done) {
+    console.log(username);
+    console.log(password);
 
-      const db = require('./db');
-      db.query('SELECT id, password FROM users WHERE username = ?',
-      [username],function(err,results,fields){
-        if(err){done(err)};
-        if(results.length == 0){
-          done(null,false);
-        }else {
+    const db = require('./db');
+    db.query('SELECT id, password FROM users WHERE username = ?',
+      [username], function (err, results, fields) {
+        if (err) { done(err) };
+        if (results.length == 0) {
+          done(null, false);
+        } else {
           const hash = results[0].password.toString();
-          bcrypt.compare(password, hash, function(err,response){
-            if(response == true){
-              return done(null,{user_id:results[0].id});
-            }else{
-              return done(null,false);
+          bcrypt.compare(password, hash, function (err, response) {
+            if (response == true) {
+              return done(null, { user_id: results[0].id });
+            } else {
+              return done(null, false);
             }
           });
         }
@@ -94,14 +95,14 @@ passport.use(new LocalStrategy(
 ));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -130,8 +131,8 @@ filenames.forEach(function (filename) {
   hbs.registerPartial(name, template);
 });
 
-hbs.registerHelper('json', function(context) {
-    return JSON.stringify(context, null, 2);
+hbs.registerHelper('json', function (context) {
+  return JSON.stringify(context, null, 2);
 });
 
 module.exports = app;

@@ -47,9 +47,9 @@
           <td>{{RetailPrice}}</td>
           <td>{{WholesalePrice}}</td>
           <td>
-            <button style="border-radius: 50%" type="button" onclick="changeStock(document.getElementById('quantityAmount').value" class="btn btn-primary">+</button>
-            <input type="input" id="quantityAmount" name="quantity" placeholder="#" maxlength="5" style="width:50px">
-            <button style="border-radius: 50%" type="button" onclick="changeStock(document.getElementById('quantityAmount').value" class="btn btn-primary"> &ndash;</button>
+            <button style="border-radius: 50%" type="button" onclick="increment(document.getElementById('{{ProductID}}').value, {{ProductID}})" class="btn btn-primary">+</button>
+            <input type="input" id="{{ProductID}}" name="quantity" placeholder="#" maxlength="5" style="width:50px">
+            <button style="border-radius: 50%" type="button" onclick="decrement(document.getElementById('{{ProductID}}').value, {{ProductID}})" class="btn btn-primary"> &ndash;</button>
           </td>
         </tr>
         {{/each}}
@@ -68,7 +68,7 @@
 </body>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-<script src="../js/createOrder.js"> </script> {{!-- TEMP --}}
+<script src="../js/inventory.js"> </script> {{!-- TEMP --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
   $(document).ready(function () {

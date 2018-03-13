@@ -144,6 +144,23 @@ function renderInventoryPage(req, res){
   });
 }
 
+
+router.put('/inventory/increment/:quantityAmount/:productID', function(req, res, next){
+  const db = require('../../db');
+  db.query(`UPDATE product SET quantity = (quantity + ?) WHERE productID = ?`,[req.params.quantityAmount,req.params.productID], function (error, results, fields) {
+    if (error) throw error;
+    console.log("right before render");
+    res.render('inventory');
+  });
+});
+router.put('/inventory/decrement/:quantityAmount/:productID', function(req, res, next){
+  const db = require('../../db');
+  db.query(`UPDATE product SET quantity = (quantity - ?) WHERE productID = ?`,[req.params.quantityAmount,req.params.productID], function (error, results, fields) {
+    if (error) throw error;
+    console.log("right before render");
+    res.render('inventory');
+  });
+});
 router.get('/inventory', getProducts, renderInventoryPage);
 // End of method for inventory page
 /////////////////////////////////////////////////////////////
