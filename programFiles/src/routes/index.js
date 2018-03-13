@@ -105,27 +105,9 @@ router.post('/addclient', function (req, res, next) {
   });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+router.get('/finances', function (req, res, next) {
+  res.render('finances', { title: 'Finances' });
+});
 
 router.get('/login', function (req, res, next) {
   res.render('login', { title: 'Login' });
@@ -170,6 +152,25 @@ function getClients(req, res, next){
     return next();
   });
 }
+
+
+
+
+function getInventory(req, res, next){
+  const db = require('../../db');
+  db.query('SELECT SUM(WholesalePrice * Quantity) FROM product', function (error, results, fields) {
+    if (error) throw error;
+    res.render('finances',{
+      results:results
+    });
+      console.log(results);
+    return next();
+  });
+}
+
+
+
+
 
 function renderCreateOrderPage(req, res){
   res.render('createorder', {
