@@ -1,0 +1,128 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{{ title }}</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Place favicon.ico in the root directory -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+  />
+  {{!-- Header --}}
+  {{> header }}
+</head>
+
+
+<body>
+
+  <script type="text/javascript" src="../routes/addproduct.js"></script>
+  <div class="jumbotron">
+      <h1 class="display-4">Add a new client</h1>
+      <p class="lead">Adding a new client to the client list.</p>
+  </div>
+  <div class="container">
+      <form class="needs-validation" action="/addclient" method="post">
+          <!-- novalidate> -->
+          <div class="form-group">
+              <div class="col-6">
+                  <label for="storeName">Store Name</label>
+                  <input type="text" class="form-control" name="storeName" placeholder="Enter store name" maxlength="255" required>
+                  <div class="valid-feedback">
+                      Looks good!
+                  </div>
+                  <div class="invalid-feedback">
+                      Please provide a valid store name.
+                  </div>
+              </div>
+          </div>
+          <div class="col-6">
+              <label for="firstName">First Name</label>
+              <input type="text" class="form-control" name="firstName" placeholder="Enter customer first name" maxlength="500" required>
+              <div class="valid-feedback">
+                  Looks good!
+              </div>
+              <div class="invalid-feedback">
+                  Please provide a customer name.
+              </div>
+          </div>
+          <div class="col-6">
+              <label for="LastName">Last Name</label>
+              <input type="text" class="form-control" name="lastName" placeholder="Enter customer last name" maxlength="500" required>
+              <div class="valid-feedback">
+                  Looks good!
+              </div>
+              <div class="invalid-feedback">
+                  Please provide customer last name.
+              </div>
+          </div>
+          <div class="col-6">
+              <label for="phoneNumber">Phone Number</label>
+              <input type="text" class="form-control" name="phoneNumber" placeholder="Enter customer phone number" maxlength="500" required>
+              <div class="valid-feedback">
+                  Looks good!
+              </div>
+              <div class="invalid-feedback">
+                  Please provide customer phone number.
+              </div>
+          </div>
+          <div class="col-6">
+              <label for="address">Street address</label>
+              <input type="text" class="form-control" name="address" placeholder="Enter the store address" maxlength="500" required>
+              <div class="valid-feedback">
+                  Looks good!
+              </div>
+              <div class="invalid-feedback">
+                  Please provide a store address.
+              </div>
+          </div>
+          <div class="col-6">
+              <label for="city">City</label>
+              <input type="text" class="form-control" name="city" placeholder="Enter the store city" maxlength="500" required>
+              <div class="valid-feedback">
+                  Looks good!
+              </div>
+              <div class="invalid-feedback">
+                  Please provide the city of the store.
+              </div>
+          </div>
+          <div class="col-6">
+              <label for="state">State</label>
+              <input type="text" class="form-control" name="state" placeholder="Enter the store state" maxlength="500" required>
+              <div class="valid-feedback">
+                  Looks good!
+              </div>
+              <div class="invalid-feedback">
+                  Please provide the store state.
+              </div>
+          </div>
+          <div class="col-6">
+              <label for="zipCode">Zip Code</label>
+              <input type="text" class="form-control" name="zipCode" placeholder="Enter the store zip code" maxlength="500" required>
+              <div class="valid-feedback">
+                  Looks good!
+              </div>
+              <div class="invalid-feedback">
+                  Please provide the store zip code.
+              </div>
+                <div class="col-20">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+
+  {{> footer-end }}
+  {{!-- need to post on every page --}} {{!-- Needed for bootstrap, might be able to move to footer if ordering is correct--}}
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

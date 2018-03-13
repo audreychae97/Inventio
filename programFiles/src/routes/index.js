@@ -58,7 +58,6 @@ router.post('/addproduct', function (req, res, next) {
   var wholesalePr = req.body.wholesaleID;
   var retailPr = req.body.retailID;
 
-  console.log(unit);
   db.query('INSERT INTO product (name, quantity, categoryID, size, unit, description, wholesalePrice, retailPrice)' +
     'VALUES (?, ?, ?, ?,?, ?, ?, ?)', [prodName, quantity, category, size, unit, desc, wholesalePr, retailPr],
     function (error, results, fileds) {
@@ -85,6 +84,49 @@ router.post('/addproduct', function (req, res, next) {
   });
 });
 
+
+
+router.post('/addclient', function (req, res, next) {
+  const db = require('../../db');
+  var storeName = req.body.storeName;
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
+  var phoneNumber = req.body.phoneNumber;
+  var streetAddress = req.body.address;
+  var city = req.body.city;
+  var state = req.body.state;
+  var zipCode = req.body.zipCode;
+
+  db.query('INSERT INTO client (StoreName, FirstName, LastName, PhoneNumber, StreetAddress, City, State, ZipCode)' +
+    'VALUES (?, ?, ?, ?,?, ?, ?, ?)', [storeName, firstName, lastName, phoneNumber, streetAddress, city, state, zipCode],
+    function (error, results, fileds) {
+      if (error) throw error;
+      res.redirect('addclient');
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 router.get('/login', function (req, res, next) {
   res.render('login', { title: 'Login' });
 });
@@ -93,6 +135,9 @@ router.get('/about', function (req, res, next) {
   res.render('about', { title: 'About' });
 });
 
+router.get('/addclient', function (req, res, next) {
+  res.render('addclient', { title: 'Add Client' });
+});
 
 //method that retrieves information for one product by ID
 //TODO: separate the searching of a certain product by ID into a separate method and pass into this .get as 2nd param..
