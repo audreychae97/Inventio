@@ -91,9 +91,6 @@ router.get('/about', function (req, res, next) {
   res.render('about', { title: 'About' });
 });
 
-router.get('/inventory', function (req, res, next) {
-  res.render('inventory', { title: 'Inventory' });
-});
 
 //method that retrieves information for one product by ID 
 //TODO: separate the searching of a certain product by ID into a separate method and pass into this .get as 2nd param.. 
@@ -107,7 +104,8 @@ router.get('/createOrder/:productID', function (req, res, next) {
     //res.send(results[0]);
   });
 });
-
+/////////////////////////////////////////////////////////////
+// All method for create order page, each function is a query
 function getProducts(req, res, next) {
   const db = require('../../db');
   db.query('SELECT * FROM product', function (error, results, fields) {
@@ -133,7 +131,22 @@ function renderCreateOrderPage(req, res){
   });
 }
 
+// The get call to create order
 router.get('/createorder', getProducts, getClients, renderCreateOrderPage);
+// End of methods for create order
+/////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////
+// All methods required for inventory
+function renderInventoryPage(req, res){
+  res.render('inventory', {
+    productTable: req.productTable
+  });
+}
+
+router.get('/inventory', getProducts, renderInventoryPage);
+// End of method for inventory page
+/////////////////////////////////////////////////////////////
 
 
   

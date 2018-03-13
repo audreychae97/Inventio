@@ -13,20 +13,52 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap4.min.css" rel="stylesheet"
-  /> 
-  {{!-- Header --}} 
-  {{> header }}
+  /> {{> header }}
 </head>
-
-
-
-
-
 
 <body>
 
-  {{> footer-end }} 
-  {{!-- need to post on every page --}} {{!-- Needed for bootstrap, might be able to move to footer if ordering is correct--}} 
+  <div class="table-responsive">
+    <table class="table table-bordered" id="productTable" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          {{!--
+          <th scope="col">ProductId</th> --}}
+          <th scope="col">Quantity</th>
+          <th scope="col">Name</th>
+          <th scope="col">Size</th>
+          <th scope="col">Description</th>
+          <th scope="col">Category</th>
+          <th scope="col">Retail Price</th>
+          <th scope="col">Wholesale Price</th>
+          <th scope="col">Adjust Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          {{#each productTable}} {{!--
+          <td>{{ProductID}}</td> --}}
+          <td>{{Quantity}}</td>
+          <td>{{Name}}</td>
+          <td>{{Size}} {{Unit}}</td>
+          <td>{{Description}}</td>
+          <td>{{Category}}</td>
+          <td>{{RetailPrice}}</td>
+          <td>{{WholesalePrice}}</td>
+          <td>
+            <button style="border-radius: 50%" type="button" onclick="changeStock(document.getElementById('quantityAmount').value" class="btn btn-primary">+</button>
+            <input type="input" id="quantityAmount" name="quantity" placeholder="#" maxlength="5" style="width:50px">
+            <button style="border-radius: 50%" type="button" onclick="changeStock(document.getElementById('quantityAmount').value" class="btn btn-primary"> &ndash;</button>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  </div>
+  {{> footer-end }} {{!-- need to post on every page --}} {{!-- Needed for bootstrap, might be able to move to footer if ordering
+  is correct--}}
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -34,5 +66,14 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 </body>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script src="../js/createOrder.js"> </script> {{!-- TEMP --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#productTable').DataTable();
+  });
+</script>
 
 </html>
