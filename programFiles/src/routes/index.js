@@ -196,45 +196,42 @@ router.put('/inventory/increment/:quantityAmount/:productID', function(req, res,
   const db = require('../../db');
   db.query(`UPDATE product SET quantity = (quantity + ?) WHERE productID = ?`,[req.params.quantityAmount,req.params.productID], function (error, results, fields) {
     if (error) throw error;
-    console.log("right before render");
-    res.render('inventory');
   });
 });
 router.put('/inventory/decrement/:quantityAmount/:productID', function(req, res, next){
   const db = require('../../db');
   db.query(`UPDATE product SET quantity = (quantity - ?) WHERE productID = ?`,[req.params.quantityAmount,req.params.productID], function (error, results, fields) {
     if (error) throw error;
-    console.log("right before render");
-    res.render('inventory');
   });
 });
 router.get('/inventory', getProducts, renderInventoryPage);
 // End of method for inventory page
 /////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////
+// All methods required for inventory
+
+function getClients(req, res, next) {
+  const db = require('../../db');
+  db.query('SELECT * FROM client', function (error, results, fields) {
+    if (error) throw error;
+    req.clientTable = results;
+    return next();
+  });
+}
+
+function renderClientPage(req, res){
+  res.render('clientlist', {
+    clientTable: req.clientTable
+  });
+}
 
 
+router.get('/clientlist', getClients, renderClientPage);
 
 
-  // res.render('createorder', { title: 'Create Order' });
-
-
-// router.get('/createorder', function (req, res, next) {
-
-//   const db = require('../../db');
-//   var resultsYO;
-//   db.query('SELECT * FROM product', function (error, results, fields) {
-//     if (error) throw error;
-//     resultsYO = results;
-
-//     res.render('createorder', {
-//       productTable: resultsYO
-//     });
-//     next();
-//   });
-//   // console.log(resultsYO);
-//   console.log("Session: %j", resultsYO);
-// });
+// End of method for inventory page
+/////////////////////////////////////////////////////////////
 
 router.get('/logout', function (req, res, next) {
   req.logout();

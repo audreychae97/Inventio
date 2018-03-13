@@ -17,46 +17,51 @@
 </head>
 
 <body>
+  <div class="container-fluid">
+    <br>
+    <div class="jumbotron">
+      <h1 class="display-3">Warehouse Inventory</h1>
+      <p class="lead">Current Stock in the Warehouse</p>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered" id="productTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Size</th>
+            <th scope="col">Description</th>
+            <th scope="col">Category</th>
+            <th scope="col">Retail Price</th>
+            <th scope="col">Wholesale Price</th>
+            <th scope="col">Adjust Stock</th>
+          </tr>
+        </thead>
+        <tbody>
 
-  <div class="table-responsive">
-    <table class="table table-bordered" id="productTable" width="100%" cellspacing="0">
-      <thead>
-        <tr>
-          {{!--
-          <th scope="col">ProductId</th> --}}
-          <th scope="col">Quantity</th>
-          <th scope="col">Name</th>
-          <th scope="col">Size</th>
-          <th scope="col">Description</th>
-          <th scope="col">Category</th>
-          <th scope="col">Retail Price</th>
-          <th scope="col">Wholesale Price</th>
-          <th scope="col">Adjust Stock</th>
-        </tr>
-      </thead>
-      <tbody>
+          <tr>
+            {{#each productTable}}
+            <td>{{Name}}</td>
+            <td>{{Quantity}}</td>
+            <td>{{Size}} {{Unit}}</td>
+            <td>{{Description}}</td>
+            <td>{{Category}}</td>
+            <td>{{RetailPrice}}</td>
+            <td>{{WholesalePrice}}</td>
+            <td>
+              <button style="border-radius: 50%" type="button" onclick="increment(document.getElementById('{{ProductID}}').value, {{ProductID}})"
+                class="btn btn-primary">+</button>
+              <input type="input" id="{{ProductID}}" name="quantity" placeholder="#" maxlength="5" style="width:50px">
+              <button style="border-radius: 50%" type="button" onclick="decrement(document.getElementById('{{ProductID}}').value, {{ProductID}})"
+                class="btn btn-primary"> &ndash;</button>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-        <tr>
-          {{#each productTable}} {{!--
-          <td>{{ProductID}}</td> --}}
-          <td>{{Quantity}}</td>
-          <td>{{Name}}</td>
-          <td>{{Size}} {{Unit}}</td>
-          <td>{{Description}}</td>
-          <td>{{Category}}</td>
-          <td>{{RetailPrice}}</td>
-          <td>{{WholesalePrice}}</td>
-          <td>
-            <button style="border-radius: 50%" type="button" onclick="increment(document.getElementById('{{ProductID}}').value, {{ProductID}})" class="btn btn-primary">+</button>
-            <input type="input" id="{{ProductID}}" name="quantity" placeholder="#" maxlength="5" style="width:50px">
-            <button style="border-radius: 50%" type="button" onclick="decrement(document.getElementById('{{ProductID}}').value, {{ProductID}})" class="btn btn-primary"> &ndash;</button>
-          </td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
-  </div>
-  </div>
   {{> footer-end }} {{!-- need to post on every page --}} {{!-- Needed for bootstrap, might be able to move to footer if ordering
   is correct--}}
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
