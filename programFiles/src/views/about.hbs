@@ -13,21 +13,107 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap4.min.css" rel="stylesheet"
-  /> 
-  {{!-- Header --}} 
+  />
+  {{!-- Header --}}
   {{> header }}
 </head>
-CONTENT
+
 <body>
 
-  {{> footer-end }} 
-  {{!-- need to post on every page --}} {{!-- Needed for bootstrap, might be able to move to footer if ordering is correct--}} 
+  <div class="container">
+    <div class="jumbotron">
+      <h1 class="display-3">About Us</h1>
+      <p class="lead">The Faces Behind InvenTío</p>
+    </div>
+
+    <h2>Meet the team</h2>
+    <!-- Diego's BIO-->
+    <div class="row marketing">
+      <div class="col-lg-6">
+        <h4>Hi Diego..</h4>
+        <img src="{{newProd.png}}" alt="newprod">
+      </div>
+      <div class="col-lg-6">
+        <p>Diego is the founder of Levy Innovation, a marketing strategy firm.
+          David Meerman Scott has called him “a positioning guru extraordinaire,”
+          and Debbie Weil referred to him as “a horse whisperer for writers and
+          business thinkers.” He has written for The New York Times, and has written
+          or co-created five books. His latest is a revised, expanded, and re-subtitled
+          edition of his bestseller, Accidental Genius: Using Writing to Generate
+          Your Best Ideas, Insight, and Content. Mark also creates magic tricks
+          and shows. His work has been performed Off-Broadway, in Las Vegas, and
+          on all the major television networks. </p>
+      </div>
+    </div>
+    <!-- Tran's BIO-->
+    <div class="row marketing">
+      <div class="col-lg-6">
+        <h4>Hi Tran..</h4>
+        <img src="{{newProd.png}}" alt="newprod">
+      </div>
+      <div class="col-lg-6">
+        <p>Tran is a veteran of creating and managing digital content to build
+          relationships for organizations and individuals. Ann is the author of
+          the Wall Street Journal bestseller  Everybody Writes: Your Go-To Guide
+          to Creating Ridiculously Good Content (September 2014, Wiley) and
+          co-author of the best-selling book on content marketing, Content Rules:
+          How to Create Killer Blogs, Podcasts, Videos, Ebooks, Webinars (and More)
+          That Engage Customers and Ignite Your Business (2011, Wiley). She is the
+          Chief Content Officer of MarketingProfs; a LinkedIn Influencer; a keynote
+          speaker, mom, and writer.”</p>
+      </div>
+    </div>
+    <!-- Nick's BIO-->
+    <div class="row marketing">
+      <div class="col-lg-6">
+        <h4>Hi Nick..</h4>
+        <img src="{{newProd.png}}" alt="newprod">
+      </div>
+      <div class="col-lg-6">
+        <p>German-born anarchist. Bauer immigrated to the United States in 1880,
+           and settled in Pittsburgh, where he took part in the movement for an
+           eight-hour workday. Bauer was drawn to anarchism in response to the
+           Haymarket trial and executions. Alexander Berkman stayed with Bauer
+           and Carl Nold in Pittsburgh before his attempted assassination of
+           Henry Clay Frick. With Nold, Bauer was sentenced to five years, and
+           served four, in prison on two charges: incitement to riot (stemming
+           from their distribution of a handbill addressed to striking Homestead
+           workers on 8 July); and conspiracy (with Berkman) to commit murder.
+           Bauer was also charged $50 and sixty days in county jail for contempt
+           of court when he refused to name the other men involved in distributing
+           the leaflets (one of whom was Max Metzkow).</p>
+      </div>
+    </div>
+    <!-- Audrey's BIO-->
+    <div class="row marketing">
+      <div class="col-lg-6">
+        <h4>Hi Audrey..</h4>
+        <img src="{{newProd.png}}" alt="newprod">
+      </div>
+      <div class="col-lg-6">
+        <p>Audrey grew up in Newton, Massachusetts (where she felt she never quite fit in),
+           and graduated from the University of Massachusetts at Amherst
+           (where she didn’t fit in either) and the Radcliffe Publishing
+           Procedures Course (where she finally started to feel like she fit in). </p>
+      </div>
+    </div>
+    {{!-- Container div end --}}
+  </div>
+
+  {{> footer-end }} {{!-- need to post on every page --}} {{!-- Needed for bootstrap --}}
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function () {
+      $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+      });
+  });
+    </script>
 </body>
 
 </html>

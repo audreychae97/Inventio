@@ -25,11 +25,21 @@ require('datatables.net-bs4')($);
 router.get('/', function (req, res) {
   console.log(req.user);
   console.log(req.isAuthenticated())
-  res.render('mainpage', { title: 'Home' });
+  if (req.isAuthenticated()){ //if already logged into a session, show different home screen
+    res.render('loginHome', {title: 'Welcome'});
+  }
+  else{
+    res.render('mainpage', { title: 'Home' });
+  }
 });
 
 router.get('/mainpage', function (req, res, next) {
-  res.render('mainpage', { title: 'Home' });
+  if (req.isAuthenticated()){ //if already logged into a session, show different home screen
+    res.render('loginHome', {title: 'Welcome'});
+  }
+  else{
+    res.render('mainpage', { title: 'Home' });
+  }
 });
 
 router.get('/profile', authenticationMiddleware(), function (req, res, next) {
