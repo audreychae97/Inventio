@@ -68,7 +68,7 @@ router.post('/addproduct', function (req, res, next) {
   //Using the same query from addproduct get method. This is bad, need to reuse the method, so
   //need to figure our how to move the queries to another .js file or something because this is varry varry
   //bad practice, plus messy and hard to follow. But I wanted to get it to work so i just have it here fo now
-  // /rant
+  // /rant 
   console.log("###################################################################");
   console.log("###################################################################");
   console.log("###################################################################");
