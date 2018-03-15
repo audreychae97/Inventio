@@ -1,0 +1,166 @@
+***************************Database tables******************
+CREATE TABLE users
+(
+id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+username VARCHAR(100) NOT NULL UNIQUE,
+email VARCHAR(100) NOT NULL UNIQUE,
+password BINARY(60) NOT NULL
+);
+
+CREATE TABLE client 
+(
+   StoreID INTEGER primary key NOT NULL AUTO_INCREMENT,
+   StreetAddress VARCHAR (100) NOT NULL,
+   City VARCHAR(255) NOT NULL,
+   State VARCHAR(255) NOT NULL,
+   ZipCode VARCHAR(10) NOT NULL,
+   FirstName VARCHAR(255) NOT NULL,
+   LastName VARCHAR(255) NOT NULL,
+   PhoneNumber VARCHAR(20) NOT NULL,
+   StoreName VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE product
+(
+   	ProductID INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+   	Name VARCHAR(255) NOT NULL,
+   	Size INTEGER,
+Unit VARCHAR(30), 
+   	Quantity INTEGER NOT NULL,
+	Description VARCHAR(500),
+   	WholesalePrice REAL NOT NULL,
+   	RetailPrice REAL NOT NULL,
+     Category VARCHAR (255)
+);
+     
+CREATE TABLE order_info
+(
+OrderID INTEGER primary key AUTO_INCREMENT,
+   	OrderDate DATE NOT NULL,
+   	ExpectedDelDate DATE NOT NULL,
+   	Status VARCHAR(200),
+   	SalesPerson VARCHAR(255) NOT NULL,
+StoreID INTEGER,
+   	FOREIGN KEY (StoreID) REFERENCES client(StoreID)
+);
+
+CREATE TABLE items
+(
+OrderID INTEGER,
+ProductID INTEGER,
+Quantity INTEGER,
+FOREIGN KEY (OrderID) REFERENCES order_info(OrderID),
+	FOREIGN KEY (ProductID) REFERENCES product(ProductID),
+PRIMARY KEY (OrderID, ProductID)
+);
+
+*************************** Queries ******************
+
+//****For retrieving all products:
+We will need this for situations where we need to populate an HTML table with the list of products per category, as well as for printing purposes 
+
+SELECT *
+FROM Product 
+
+//****For retrieving a specific product by ProductID:
+We will need this for when the user does a manual search for a product, whether by product ID or by product name 
+SELECT *
+FROM Product
+WHERE ProductId = req.param.productid (for .get function in API, where req = request) 
+
+//****Retrieving all clients: 
+This could be used for situations when the user would like to get a list of all of their clients that they are currently servings 
+SELECT * 
+FROM client
+
+//****Retrieving a specific client by StoreID:
+This could be used for situations when our user would like to search for a specific client, either by storeID or store name
+SELECT * 
+FROM client
+WHERE StoreID = req.param.StoreID
+
+//****Retrieving all orders: 
+This could be used for situations when our user would like to view all of their orders. This could eventually be filtered by order status as well, such as listing orders that are only pending, delivered, delayed, canceled.  
+SELECT * 
+FROM order_info
+
+//****Retrieving a specific order by orderID:
+This could be used for situations when our user would like to look up one specific order 
+SELECT * 
+FROM order_info
+WHERE OrderID = req.param.orderID
+
+//****Retrieving all products in a specific customer order:
+This query is important for not only viewing the products in an order, but could also be used for calculating finances and expenses. 
+SELECT * 
+FROM item o, order_info oi, client c
+WHERE o.OrderID = oi.OrderID and
+oi.OrderID = req.param.OrderID and
+oi.StoreID = c.StoreID;
+
+//*****populating database with a new product (POST)
+INSERT INTO product(ProductID, Name, Size, Unit, Quantity, WholesalePrice, RetailPrice,CategoryID) 
+VALUES (...) 
+
+(For optional columns, choose to include in query or not based on situation) 
+ 
+
+//*** Calculating total cost received from an order
+This query is used to calculate the revenue of an order. This could later be summed and used for weekly reports and statistics. 
+SELECT SUM(p.RetailPrice * i.quantity)
+FROM order_info oi, item i, product p
+WHERE oi.OrderID = i.OrderID and
+	i.ProductID = p.productID;
+
+//***** Calculating Expenses from an order
+This query is used to calculate the expenses of an order. This could later be summed and used for weekly reports and statistics.
+	SELECT SUM(p.WholesalePrice * i.quantity)
+FROM order_info oi, item i, product p
+WHERE oi.OrderID = i.OrderID and
+	i.ProductID = p.productID;
+
+
+//**** The expenses of the items in the inventory right now
+This query would be useful for the user to know, and also to calculate revenue 
+SELECT SUM(p.Wholesale * p.Quantity)
+FROM product p;
+	
+
+//*** Retail price of a product:
+This query is used to return the cost of a product for the client. The data from this query will be displayed on the HTML as needed and also can be used to calculate revenue/profit. 
+	SELECT retailprice
+	FROM product 
+	WHERE name LIKE ‘?’; 
+
+//*** New user into system:
+INSERT INTO users(username, email, password) VALUES(?,?,?);
+
+//*** Updating the quantity of a product in the database:
+This is used to change the quantity of a product in the warehouse. This would be used when items are being removed from the stock as an order is created, or when new stock is being added into the warehouse.
+UPDATE product SET quantity = (quantity + ?) WHERE productID = ?;
+UPDATE product SET quantity = (quantity - ?) WHERE productID = ?
+
+//*** Getting revenue
+SELECT SUM(p.RetailPrice * i.quantity)
+FROM item i, product p
+WHERE p.productID = i.productID;
+
+//*** Getting expenses
+
+CREATE VIEW warehouseExpenses(TotalExpensesInWarehouse)
+AS 
+SELECT SUM(p.WholesalePrice * p.quantity)
+FROM product;
+
+
+CREATE VIEW itemExpenses(TotalExpensesInItem) 
+AS 
+SELECT SUM(p.WholesalePrice * i.quantity)
+FROM item i, product p
+WHERE p.productID = i.productID;
+
+SELECT SUM(we.TotalExpensesInWarehouse + ie.TotalExpensesInItem)
+FROM warehouseExpenses we, itemExpenses ie; 
+
+

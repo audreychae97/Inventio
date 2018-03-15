@@ -2,30 +2,42 @@
 var request = new XMLHttpRequest();
 var productList = [];
 
-function shittyMethod(productID){
-    console.log(productID);
+function shittyMethod(productID) {
+    //console.log(productID);
     var address = `http://127.0.0.1:3000/createOrder/${productID}`;
     request.open('GET', address, true);
 
     request.onload = function () {
-        console.log("inside the function");
         // Begin accessing JSON data here
         var product = JSON.parse(this.response);
-        productList.push(product);
+
+        productList.push(product.Name);
+        productList.push(product.ProductID);
 
         if (request.status >= 200 && request.status < 400) {
-            console.log("Product list: " + productList[0]);
-            console.log(product.Name);
-            console.log(product.Quantity);
-            console.log(product.Size);
-            console.log(product.Category);
-            //Now need to find a way to dynamically populate the table
+            for (i = 0; i < productList.length; i += 2) {
+                console.log("Product Name: " + productList[i]);
+                console.log("Product ID: " + productList[i + 1]);
+            }
+            console.log("=============================");
+            //console.log("Product list: " + productList[0]);
+            // console.log(product.Name);
+            // console.log(product.Quantity);
+            // console.log(product.Size);
+            // console.log(product.Category);
         } else {
-         console.log('error');
+            console.log('error');
         }
     }
 
     request.send();
+}
+function rowAddTest() {
+    // Find a <table> element with id="myTable":
+    var table = $('#orderTable').DataTable();
+    table.row.add([
+        '1', '2', '3', '4'
+    ]).draw(false);
 }
 
 

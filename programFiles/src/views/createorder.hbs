@@ -54,7 +54,7 @@
                                 <td>{{Description}}</td> --}}
                                 <td>{{Category}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary">button</button>
+                                    <button type="button" class="btn btn-primary" onclick="shittyMethod({{ProductID}})">button</button>
                                 </td>
                             </tr>
                             {{/each}}
@@ -78,37 +78,27 @@
                     </div>
                 </div>
                 <br>
+                <button type="button" class="btn btn-primary" onclick="rowAddTest()">Add row</button>
+                
                 <div class="table-responsive">
                     <table class="table table-bordered" id="orderTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                {{!--
-                                <th scope="col">ProductId</th> --}}
+                                
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Size</th>
-                                {{!--
-                                <th scope="col">Description</th> --}}
-                                <th scope="col">Category</th>
-                                <th scope="col">Add</th>
+                                <th scope="col">Price</th>
                             </tr>
                         </thead>
                         <tbody>
-
                             <tr>
-                                {{#each clientTable}} {{!--
-                                <td>{{ProductID}}</td> --}}
-                                <td>{{FirstName}}</td>
-                                <td>{{LastName}}</td>
-                                <td>{{StoreName}}</td>
-                                {{!--
-                                <td>{{Description}}</td> --}}
-                                <td>{{PhoneNumber}}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary" onclick="shittyMethod({{ProductID}})">button</button>
-                                </td>
+                                <td>test</td>
+                                <td>test</td>
+                                <td>test</td>
+                                <td>test</td>                                
                             </tr>
-                            {{/each}}
+
                         </tbody>
                     </table>
                 </div>

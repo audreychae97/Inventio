@@ -138,7 +138,6 @@ router.get('/createOrder/:productID', function (req, res, next) {
   const db = require('../../db');
   db.query('SELECT * FROM product WHERE ProductID = ?', req.params.productID, function (error, results, fields) {
     if (error) throw error;
-    console.log(results[0]);
     res.json(results[0]);
     //res.send(results[0]);
   });
