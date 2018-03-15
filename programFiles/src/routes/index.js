@@ -115,9 +115,9 @@ router.post('/addclient', function (req, res, next) {
 router.get('/finances', function (req, res, next) {
   res.render('finances', { title: 'Finances' });
 });
-router.get('/order', function(req,res,next){
-  res.render('order', {title: 'Orders'});
-});
+// router.get('/order', function(req,res,next){
+//   res.render('order', {title: 'Orders'});
+// });
 // --------------- GET method for rendering the login page ---------------------
 router.get('/login', function (req, res, next) {
   res.render('login', { title: 'Login' });
@@ -148,6 +148,41 @@ router.get('/createOrder/:productID', function (req, res, next) {
 /////////////////////////////////////////////////////////////
 // All method for create order page, each function is a query
 
+// --------------- Function for retrieving all products from table -------------
+// --------------- GET method for retrieving product information for a single product
+router.get('/order/:orderID', function (req, res, next) {
+  const db = require('../../db');
+  //bind variable to the parameter's value of product ID...
+  db.query('SELECT * FROM order_info WHERE OrderID = ?', req.params.orderID, function (error, results, fields) {
+    if (error) throw error;
+    console.log(results[0]);
+    res.json(results[0]);
+  });
+});
+
+function getProductsByID(req, res, next) {
+  const db = require('../../db');
+  db.query('SELECT * FROM product WHERE productID = ?', req.params.productID, function (error, results, fields) {
+    if (error) throw error;
+    req.productTable = results;
+    return next();
+  });
+}
+function getOrders(req, res, next) {
+  const db = require('../../db');
+  db.query('SELECT * FROM order_info', function (error, results, fields) {
+    if (error) throw error;
+    req.ordersTable = results;
+    return next();
+  });
+}
+// --------------- Function that rendors the order page with the populated productTable
+function renderOrdersPage(req, res){
+  res.render('order', {
+    ordersTable: req.ordersTable
+  });
+}
+router.get('/order', getOrders, renderOrdersPage, getProductsByID);
 // --------------- Function for retrieving all products from table -------------
 function getProducts(req, res, next) {
   const db = require('../../db');
@@ -205,6 +240,7 @@ router.put('/inventory/increment/:quantityAmount/:productID', function(req, res,
     if (error) throw error;
   });
 });
+
 // --------------- PUT method for decrementing inventory of a product---------------------
 // Accepts: the new quantity amount and productID to know which product to decrement
 router.put('/inventory/decrement/:quantityAmount/:productID', function(req, res, next){
@@ -241,6 +277,7 @@ router.get('/clientlist', getClients, renderClientPage);
 
 // End of method for inventory page
 /////////////////////////////////////////////////////////////
+
 
 router.get('/logout', function (req, res, next) {
   req.logout();

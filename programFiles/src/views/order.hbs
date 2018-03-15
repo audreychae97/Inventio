@@ -17,42 +17,104 @@
 </head>
 
 <body>
-  <!-- Large modal -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
-
-  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        ...
-      </div>
-    </div>
-  </div>
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-    Launch demo modal
-  </button>
-
   <!-- Modal -->
   <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Order Summary</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          ...
+          <!-- Probably need to populate values here-->
+            Client Name <input type="text" name="clientName" value=" // " readonly>
+            Date Placed <input type="text" name="datePlaced" value=" // " readonly>
+            Delivery Date <input type="text" name="deliveryDate" value=" // " readonly>
+
+            <div class="table-responsive">
+              <table class="table table-bordered" id="productTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Retail Price</th>
+                    <th scope="col">Wholesale Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    {{#each productTable}}
+                    <td>{{Name}}</td>
+                    <td>{{Quantity}}</td>
+                    <td>{{Size}} {{Unit}}</td>
+                    <td>{{Description}}</td>
+                    <td>{{Category}}</td>
+                    <td>{{RetailPrice}}</td>
+                    <td>{{WholesalePrice}}</td>
+                    <td>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary">Order Again</button>
         </div>
       </div>
     </div>
   </div>
 
+
+  <div class="container-fluid">
+    <br>
+    <div class="jumbotron">
+      <h1 class="display-3">Your Order History</h1>
+      <p class="lead">All of your orders</p>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered" id="ordersTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Expected Delivery Date</th>
+            <th scope="col">Order Status</th>
+            <th scope="col">Sales Person</th>
+            <th scope="col">Store ID</th>
+            <th scope="col">View Order</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            {{#each ordersTable}}
+            <td>{{OrderID}}</td>
+            <td>{{OrderDate}}</td>
+            <td maxlength="5">{{ExpectedDelDate}}</td>
+            <td>{{Status}}</td>
+            <td>{{SalesPerson}}</td>
+            <td>{{StoreID}}</td>
+            <td>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick()="openModal({{OrderID}})">
+                Order Review
+              </button>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
     {{> footer-end }} {{!-- need to post on every page --}} {{!-- Needed for bootstrap, might be able to move to footer if ordering
     is correct--}}
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
