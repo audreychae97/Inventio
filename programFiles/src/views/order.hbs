@@ -74,11 +74,13 @@
     </div>
   </div>
 
-<div class="jumbotron">
+
+  <div class="container-fluid">
+    <br>
+    <div class="jumbotron">
       <h1 class="display-3">Your Order History</h1>
       <p class="lead">All of your orders</p>
     </div>
-  <div class="container-fluid">
     <div class="table-responsive">
       <table class="table table-bordered" id="ordersTable" width="100%" cellspacing="0">
         <thead>
@@ -127,7 +129,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#clientTable').DataTable();
+        $('#ordersTable').DataTable();
     });
 </script>
 
