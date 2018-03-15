@@ -32,7 +32,7 @@
             <div class="form-group">
                 <div class="col-6">
                     <label for="inputName">Product</label>
-                    <input type="text" class="form-control" name="inputName" placeholder="Enter Product Name" maxlength="255" required>
+                    <input type="text" class="form-control" name="inputName" placeholder="Enter Product Name" min="0" maxlength="255" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -45,11 +45,19 @@
                 <div class="col-6">
                     <label for="selectCategory">Category</label>
                     <select class="form-control" name="selectCategory" required>
-                        <option>Food</option>
-                        <option>Drink</option>
-                        <option>Space</option>
-                        <option>Ocean</option>
-                        <option>Subterranean</option>
+                        <option value="Produce">Produce</option>
+                        <option value="Drink">Drink</option>
+                        <option value="Poultry">Poultry</option>
+                        <option value="Meat">Meat</option>
+                        <option value="Coffee & Tea">Coffee & Tea</option>
+                        <option value="Sauces">Sauces</option>
+                        <option value="Liquor">Liquor</option>
+                        <option value="Utensils">Utensils</option>
+                        <option value="Kitchen">Kitchen</option>
+                        <option value="Paper Goods">Paper Goods</option>
+                        <option value="Personal Care">Personal Care</option>
+                        <option value="Pharmacy">Pharmacy</option>
+
                     </select>
                 </div>
             </div>
@@ -57,7 +65,7 @@
                 <div class="col-6">
                     <label for="quantityID">Initial Quantity</label>
                     <input type="number" class="form-control" name="quantityID" placeholder="Enter how much youre adding to stock now (can be 0)"
-                        maxlength="10" required>
+                        maxlength="10" min="0" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -69,7 +77,7 @@
             <div class="form-group">
                 <div class="col-6">
                     <label for="weightID">Size</label>
-                    <input type="number" class="form-control" name="sizeID" placeholder="Enter Size" maxlength="11" required>
+                    <input type="number" class="form-control" name="sizeID" placeholder="Enter Size" min="0" maxlength="11" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -83,6 +91,8 @@
                         <option value = "Lb">Lb</option>
                         <option value = "Kg">Kg</option>
                         <option value = "mL">mL</option>
+                        <option value = "fl oz">fl oz</option>
+                        <option value = "g">g</option>
                     </select>
                 </div>
             </div>
@@ -130,39 +140,6 @@
 
         </form>
         <br>
-        <div class="row">
-            <div class="col-md-6 mt-4 text center">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">ProductId</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Size</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Add</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr>
-                            {{#each productTable}}
-                            <td>{{ProductID}}</td>
-                            <td>{{Name}}</td>
-                            <td>{{Size}}</td>
-                            <td>{{Quantity}}</td>
-                            <td>{{Description}}</td>
-                            <td>{{Category}}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">button</button>
-                            </td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 
     {{> footer-end }}
