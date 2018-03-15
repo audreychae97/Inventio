@@ -25,20 +25,20 @@ require('datatables.net-bs4')($);
 router.get('/', function (req, res) {
   console.log(req.user);
   console.log(req.isAuthenticated())
-  if (req.isAuthenticated()){ //if already logged into a session, show different home screen
-    res.render('loginHome', {title: 'Welcome'});
+  if (req.isAuthenticated()) { //if already logged into a session, show different home screen
+    res.render('loginHome', { title: 'Welcome' });
   }
-  else{
+  else {
     res.render('mainpage', { title: 'Home' });
   }
 });
 
 // --------------- GET method for rendering the mainPage ---------------------
 router.get('/mainpage', function (req, res, next) {
-  if (req.isAuthenticated()){ //if already logged into a session, show different home screen
-    res.render('loginHome', {title: 'Welcome'});
+  if (req.isAuthenticated()) { //if already logged into a session, show different home screen
+    res.render('loginHome', { title: 'Welcome' });
   }
-  else{ //if there is no active session, load the default home page that allows for logging in
+  else { //if there is no active session, load the default home page that allows for logging in
     res.render('mainpage', { title: 'Home' });
   }
 });
@@ -74,9 +74,9 @@ router.post('/addproduct', function (req, res, next) {
     function (error, results, fileds) {
       if (error) throw error;
       console.log("submitted");
-  });
+    });
 
-//TODO Implement Nick's rant
+  //TODO Implement Nick's rant
   //Using the same query from addproduct get method. This is bad, need to reuse the method, so
   //need to figure our how to move the queries to another .js file or something because this is varry varry
   //bad practice, plus messy and hard to follow. But I wanted to get it to work so i just have it here fo now
@@ -108,16 +108,16 @@ router.post('/addclient', function (req, res, next) {
     function (error, results, fileds) {
       if (error) throw error;
       res.redirect('addclient');
-  });
+    });
 });
 
 // --------------- GET method for rendering the finances page ---------------------
 router.get('/finances', function (req, res, next) {
   res.render('finances', { title: 'Finances' });
 });
-// router.get('/order', function(req,res,next){
-//   res.render('order', {title: 'Orders'});
-// });
+router.get('/order', function (req, res, next) {
+  res.render('order', { title: 'Orders' });
+});
 // --------------- GET method for rendering the login page ---------------------
 router.get('/login', function (req, res, next) {
   res.render('login', { title: 'Login' });
@@ -145,6 +145,8 @@ router.get('/createOrder/:productID', function (req, res, next) {
     res.json(results[0]);
   });
 });
+
+//router.post('/createOrder/:')
 /////////////////////////////////////////////////////////////
 // All method for create order page, each function is a query
 
@@ -193,7 +195,7 @@ function getProducts(req, res, next) {
   });
 }
 // --------------- Function for retrieving all clients in DB--------------------
-function getClients(req, res, next){
+function getClients(req, res, next) {
   const db = require('../../db');
   db.query('SELECT * FROM client', function (error, results, fields) {
     if (error) throw error;
@@ -202,50 +204,80 @@ function getClients(req, res, next){
   });
 }
 // --------------- function for retrieving the summation of inventory's expenses
-function getInventory(req, res, next){
+function getInventory(req, res, next) {
   const db = require('../../db');
   db.query('SELECT SUM(WholesalePrice * Quantity) FROM product', function (error, results, fields) {
     if (error) throw error;
-    res.render('finances',{
-      results:results
+    res.render('finances', {
+      results: results
     });
-      console.log(results);
+    console.log(results);
     return next();
   });
 }
 // --------------- Rendering the createOrder page ---------------------
-function renderCreateOrderPage(req, res){
+function renderCreateOrderPage(req, res, next) {
   res.render('createorder', {
     productTable: req.productTable, //provide the pages with tables to populate data
     clientTable: req.clientTable
   });
 }
 
-// --------------- GET method for creating an order calls the above declared functions
+function createNewOrder(req, res, next) {
+  const db = require('../../db');
+  db.query('INSERT INTO order_info(OrderDate, ExpectedDelDate, Status, SalesPerson, StoreID) VALUES((SELECT NOW()), ?, "In Progress", ?, ?)', [req.params.SalesPerson, req.params.ExpectedDate, req.params.StoreID], function (error, results, fields) {
+    if (error) throw error;
+    return next();
+  });
+}
+// --------------- GET method for creating an order calls the above declared 
+router.post('/createOrder/:OrderID/:SalesPerson/:ExpectedDate/:StoreID', function (req, res) {
+  const db = require('../../db');
+  console.log("herro");
+  db.query('INSERT INTO order_info(OrderID, OrderDate, ExpectedDelDate, Status, SalesPerson, StoreID) VALUES(?, (SELECT NOW()), ?, "In Progress", ?, ?)', [req.params.OrderID, req.params.ExpectedDate, req.params.SalesPerson, req.params.StoreID], function (error, results, fields) {
+    if (error) throw error;
+  });
+});
+
+router.post('/createOrder/:orderID}/:curProdID/:quantity', function (req, res) {
+  const db = require('../../db');
+  db.query('INSERT INTO items(OrderID, ProductID, Quantity) VALUES(?, ?, ?)', [req.params.orderID, req.params.curProdID, req.params.quantity], function (error, results, fields) {
+    if (error) throw error;
+  });
+});
+
+
+//   const db = require('../../db');
+//   db.query('SELECT orderid from order_info ORDER by OrderID DESC LIMIT 1', function (error, results, fields) {
+//     if (error) throw error;
+//     res.json(results);
+//   });
+// });
+
 router.get('/createorder', getProducts, getClients, renderCreateOrderPage);
 // End of methods for create order
 /////////////////////////////////////////////////////////////
 
 // --------------- Function that rendors the inventory page with the populated productTable
-function renderInventoryPage(req, res){
+function renderInventoryPage(req, res) {
   res.render('inventory', {
     productTable: req.productTable
   });
 }
 // --------------- PUT method for incrementing inventory of a product---------------------
 // Accepts: the new quantity amount and productID to know which product to increment
-router.put('/inventory/increment/:quantityAmount/:productID', function(req, res, next){
+router.put('/inventory/increment/:quantityAmount/:productID', function (req, res, next) {
   const db = require('../../db');
-  db.query(`UPDATE product SET quantity = (quantity + ?) WHERE productID = ?`,[req.params.quantityAmount,req.params.productID], function (error, results, fields) {
+  db.query(`UPDATE product SET quantity = (quantity + ?) WHERE productID = ?`, [req.params.quantityAmount, req.params.productID], function (error, results, fields) {
     if (error) throw error;
   });
 });
 
 // --------------- PUT method for decrementing inventory of a product---------------------
 // Accepts: the new quantity amount and productID to know which product to decrement
-router.put('/inventory/decrement/:quantityAmount/:productID', function(req, res, next){
+router.put('/inventory/decrement/:quantityAmount/:productID', function (req, res, next) {
   const db = require('../../db');
-  db.query(`UPDATE product SET quantity = (quantity - ?) WHERE productID = ?`,[req.params.quantityAmount,req.params.productID], function (error, results, fields) {
+  db.query(`UPDATE product SET quantity = (quantity - ?) WHERE productID = ?`, [req.params.quantityAmount, req.params.productID], function (error, results, fields) {
     if (error) throw error;
   });
 });
@@ -266,7 +298,7 @@ function getClients(req, res, next) {
   });
 }
 // --------------- Function for rendering the client table---------------------
-function renderClientPage(req, res){
+function renderClientPage(req, res) {
   res.render('clientlist', {
     clientTable: req.clientTable
   });

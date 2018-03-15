@@ -14,7 +14,10 @@
         crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap4.min.css" rel="stylesheet"
     /> {{!-- maybe --}}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" /> {{> header }}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" /> 
+    <link href="https://cdn.jsdelivr.net/npm/gijgo@1.8.2/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    
+    {{> header }}
 </head>
 
 <body>
@@ -22,6 +25,7 @@
     <br>
 
     <div class="container-fluid">
+            <h2>Inventory</h2>        
         <div class="row">
             {{!-- Left-half side of the page --}}
 
@@ -45,7 +49,7 @@
                         <tbody>
 
                             <tr>
-                                {{#each productTable}} 
+                                {{#each productTable}}
                                 <td>{{Quantity}}</td>
                                 <td>{{Name}}</td>
                                 <td>{{Size}}</td>
@@ -59,18 +63,34 @@
                     </table>
                 </div>
             </div>
+            
             <div class="col-6">
                 {{!-- Right half side of the page --}} {{!-- SPACE BETWEEN TABLE AND CARD, TODO: FIX --}}
+
                 <div class="card">
                     <div class="card-body">
                         <h4>Customer</h4>
 
-                        <div class="js-example-basic-single" id="clientList" name="ClientSelector">
+                        <select id='clientList'>
                             {{#each clientTable}}
-                            <option value={ {StoreID}}>{{StoreName}} - {{FirstName}} {{LastName}} </option>
+                            <option value="{{StoreID}}">{{StoreName}} - {{FirstName}} {{LastName}} </option>
                             {{/each}}
+                        </select>
 
+                        {{!-- <div class="js-example-basic-single" id="clientList" name="ClientSelector">
+                            {{#each clientTable}}
+                            <option value={{StoreID}}>{{StoreName}} - {{FirstName}} {{LastName}} </option>
+                            {{/each}}
+                        </div> --}}
+                        <br>
+                        <div class="form-group">
+                            <div class="col-6">
+                                <h4>Salesperson</h4>
+                                <input type="text" class="form-control" id="salesperson" value="Tio" maxlength="255">
+                            </div>
                         </div>
+                        <h7> <b>Expected Deliver Date </b></h7>
+                        <input id="datepicker" width="276" />
 
                     </div>
                 </div>
@@ -83,25 +103,18 @@
                                 <th scope="col" style="width:90px">Quantity</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Size</th>
-                                <th scope="col">Price</th>
+                                <th scope="col" style="width:100px">Price Each</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <input type="number" class="form-control" name="quantityID" maxlength="10" min = "0" value = "1" style="width:80px">
-                                </td>
-                                <td>test</td>
-                                <td>test</td>
-                                <td>test</td>
-                            </tr>
 
                         </tbody>
                     </table>
                 </div>
+                <br>
+                <button type="button"  onclick="submitOrder(document.getElementById('salesperson').value, document.getElementById('datepicker').value, document.getElementById('clientList').value)" method="post" class="btn btn-primary btn-lg btn-block">Submit Order</button>
             </div>
         </div>
-
     </div>
 
 
@@ -117,6 +130,8 @@
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <script src="../js/createOrder.js"> </script> {{!-- TEMP --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.8.2/combined/js/gijgo.min.js" type="text/javascript"></script>
+    
     <script>
         $(document).ready(function () {
             $('#example').DataTable();
@@ -130,6 +145,12 @@
     <script>
         $(document).ready(function () {
             $('.js-example-basic-single').select2();
+        });
+    </script>
+    <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'yyyy-mm-dd'
         });
     </script>
 
