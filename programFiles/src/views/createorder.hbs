@@ -45,16 +45,13 @@
                         <tbody>
 
                             <tr>
-                                {{#each productTable}} {{!--
-                                <td>{{ProductID}}</td> --}}
+                                {{#each productTable}} 
                                 <td>{{Quantity}}</td>
                                 <td>{{Name}}</td>
                                 <td>{{Size}}</td>
-                                {{!--
-                                <td>{{Description}}</td> --}}
                                 <td>{{Category}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" onclick="shittyMethod({{ProductID}})">button</button>
+                                    <button type="button" class="btn btn-primary" onclick="addToOrder({{ProductID}}, '{{Name}}', {{Size}}, '{{Unit}}', '{{RetailPrice}}')">+</button>
                                 </td>
                             </tr>
                             {{/each}}
@@ -78,14 +75,12 @@
                     </div>
                 </div>
                 <br>
-                <button type="button" class="btn btn-primary" onclick="rowAddTest()">Add row</button>
-                
                 <div class="table-responsive">
                     <table class="table table-bordered" id="orderTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                
-                                <th scope="col">Quantity</th>
+
+                                <th scope="col" style="width:90px">Quantity</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Size</th>
                                 <th scope="col">Price</th>
@@ -93,10 +88,12 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td>
+                                    <input type="number" class="form-control" name="quantityID" maxlength="10" min = "0" value = "1" style="width:80px">
+                                </td>
                                 <td>test</td>
                                 <td>test</td>
                                 <td>test</td>
-                                <td>test</td>                                
                             </tr>
 
                         </tbody>

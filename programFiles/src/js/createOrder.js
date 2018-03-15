@@ -32,11 +32,19 @@ function shittyMethod(productID) {
 
     request.send();
 }
-function rowAddTest() {
-    // Find a <table> element with id="myTable":
+function addToOrder(productID, productName, productSize, productUnit, productRetailPrice) {
     var table = $('#orderTable').DataTable();
+    var inputField = '<input type="number" class="form-control" name="quantity" maxlength="10" min = "0" value = "1" style="width:80px">';
+    var name = '<td>'+productName+'</td>';
+    var size = '<td>'+productSize+ ' ' + productUnit+'</td>';
+    var retailPrice = '<td>'+productRetailPrice+'</td>';
+    
+    $inputField = $(inputField);
+    $name = $(name);
+    $size = $(size);
+    $retailPrice = $(retailPrice);
     table.row.add([
-        '1', '2', '3', '4'
+        inputField, name, size, retailPrice
     ]).draw(false);
 }
 
