@@ -33,21 +33,22 @@ router.get('/', function (req, res) {
   }
 });
 
+// --------------- GET method for rendering the mainPage ---------------------
 router.get('/mainpage', function (req, res, next) {
   if (req.isAuthenticated()){ //if already logged into a session, show different home screen
     res.render('loginHome', {title: 'Welcome'});
   }
-  else{
+  else{ //if there is no active session, load the default home page that allows for logging in
     res.render('mainpage', { title: 'Home' });
   }
 });
-
+// --------------- GET method for rendering the profile page -------------------
 router.get('/profile', authenticationMiddleware(), function (req, res, next) {
   res.render('profile', { title: 'Profile' });
 });
-
+// --------------- GET method for rendering the add product page----------------
 router.get('/addproduct', authenticationMiddleware(), function (req, res, next) {
-  const db = require('../../db');
+  const db = require('../../db'); //database set from app.js
   db.query('SELECT * FROM product', function (error, results, fields) {
     if (error) throw error;
     res.render('addproduct', {
@@ -55,36 +56,31 @@ router.get('/addproduct', authenticationMiddleware(), function (req, res, next) 
     });
   });
 });
-
+// --------------- POST method for adding in new product ---------------------
 router.post('/addproduct', function (req, res, next) {
   const db = require('../../db');
-
-  var prodName = req.body.inputName;
+  //grab the data from the text fields from the UI.
+  var prodName = req.body.inputName; //request -> parameter -> body's inputName field
   var quantity = req.body.quantityID;
-  var category = 1;//req.body.selectCategory;;
+  var category = req.body.selectCategory;
   var size = req.body.sizeID;
   var unit = req.body.selectUnit;
   var desc = req.body.descriptionID;
   var wholesalePr = req.body.wholesaleID;
   var retailPr = req.body.retailID;
 
-  db.query('INSERT INTO product (name, quantity, categoryID, size, unit, description, wholesalePrice, retailPrice)' +
-    'VALUES (?, ?, ?, ?,?, ?, ?, ?)', [prodName, quantity, category, size, unit, desc, wholesalePr, retailPr],
+  db.query('INSERT INTO product (Name, size, unit, category, quantity, description, wholesalePrice, retailPrice)' +
+    'VALUES (?, ?, ?, ?,?, ?, ?, ?)', [prodName, size, unit, category, quantity, desc, wholesalePr, retailPr],
     function (error, results, fileds) {
       if (error) throw error;
       console.log("submitted");
   });
 
+//TODO Implement Nick's rant
   //Using the same query from addproduct get method. This is bad, need to reuse the method, so
   //need to figure our how to move the queries to another .js file or something because this is varry varry
   //bad practice, plus messy and hard to follow. But I wanted to get it to work so i just have it here fo now
-  // /rant 
-  console.log("###################################################################");
-  console.log("###################################################################");
-  console.log("###################################################################");
-  console.log("########  DOING A BAD THING HERE! Read comment in index.js#  ######");
-  console.log("###################################################################");
-  console.log("###################################################################");
+  // /rant
   db.query('SELECT * FROM product', function (error, results, fields) {
     if (error) throw error;
     res.render('addproduct', {
@@ -94,8 +90,7 @@ router.post('/addproduct', function (req, res, next) {
   });
 });
 
-
-
+// --------------- POST method for adding a new client ---------------------
 router.post('/addclient', function (req, res, next) {
   const db = require('../../db');
   var storeName = req.body.storeName;
@@ -107,6 +102,7 @@ router.post('/addclient', function (req, res, next) {
   var state = req.body.state;
   var zipCode = req.body.zipCode;
 
+  //query to input new client information to database
   db.query('INSERT INTO client (StoreName, FirstName, LastName, PhoneNumber, StreetAddress, City, State, ZipCode)' +
     'VALUES (?, ?, ?, ?,?, ?, ?, ?)', [storeName, firstName, lastName, phoneNumber, streetAddress, city, state, zipCode],
     function (error, results, fileds) {
@@ -115,18 +111,23 @@ router.post('/addclient', function (req, res, next) {
   });
 });
 
+// --------------- GET method for rendering the finances page ---------------------
 router.get('/finances', function (req, res, next) {
   res.render('finances', { title: 'Finances' });
 });
-
+router.get('/order', function(req,res,next){
+  res.render('order', {title: 'Orders'});
+});
+// --------------- GET method for rendering the login page ---------------------
 router.get('/login', function (req, res, next) {
   res.render('login', { title: 'Login' });
 });
-
+// --------------- GET method for rendering the about page ---------------------
 router.get('/about', function (req, res, next) {
   res.render('about', { title: 'About' });
 });
 
+// --------------- GET method for rendering the addClient ---------------------
 router.get('/addclient', function (req, res, next) {
   res.render('addclient', { title: 'Add Client' });
 });
@@ -134,16 +135,20 @@ router.get('/addclient', function (req, res, next) {
 //method that retrieves information for one product by ID
 //TODO: separate the searching of a certain product by ID into a separate method and pass into this .get as 2nd param..
 
+// --------------- GET method for retrieving product information for a single product
 router.get('/createOrder/:productID', function (req, res, next) {
   const db = require('../../db');
+  //bind variable to the parameter's value of product ID...
   db.query('SELECT * FROM product WHERE ProductID = ?', req.params.productID, function (error, results, fields) {
     if (error) throw error;
+    console.log(results[0]);
     res.json(results[0]);
-    //res.send(results[0]);
   });
 });
 /////////////////////////////////////////////////////////////
 // All method for create order page, each function is a query
+
+// --------------- Function for retrieving all products from table -------------
 function getProducts(req, res, next) {
   const db = require('../../db');
   db.query('SELECT * FROM product', function (error, results, fields) {
@@ -152,7 +157,7 @@ function getProducts(req, res, next) {
     return next();
   });
 }
-
+// --------------- Function for retrieving all clients in DB--------------------
 function getClients(req, res, next){
   const db = require('../../db');
   db.query('SELECT * FROM client', function (error, results, fields) {
@@ -161,10 +166,7 @@ function getClients(req, res, next){
     return next();
   });
 }
-
-
-
-
+// --------------- function for retrieving the summation of inventory's expenses
 function getInventory(req, res, next){
   const db = require('../../db');
   db.query('SELECT SUM(WholesalePrice * Quantity) FROM product', function (error, results, fields) {
@@ -176,38 +178,35 @@ function getInventory(req, res, next){
     return next();
   });
 }
-
-
-
-
-
+// --------------- Rendering the createOrder page ---------------------
 function renderCreateOrderPage(req, res){
   res.render('createorder', {
-    productTable: req.productTable,
+    productTable: req.productTable, //provide the pages with tables to populate data
     clientTable: req.clientTable
   });
 }
 
-// The get call to create order
+// --------------- GET method for creating an order calls the above declared functions
 router.get('/createorder', getProducts, getClients, renderCreateOrderPage);
 // End of methods for create order
 /////////////////////////////////////////////////////////////
 
-/////////////////////////////////////////////////////////////
-// All methods required for inventory
+// --------------- Function that rendors the inventory page with the populated productTable
 function renderInventoryPage(req, res){
   res.render('inventory', {
     productTable: req.productTable
   });
 }
-
-
+// --------------- PUT method for incrementing inventory of a product---------------------
+// Accepts: the new quantity amount and productID to know which product to increment
 router.put('/inventory/increment/:quantityAmount/:productID', function(req, res, next){
   const db = require('../../db');
   db.query(`UPDATE product SET quantity = (quantity + ?) WHERE productID = ?`,[req.params.quantityAmount,req.params.productID], function (error, results, fields) {
     if (error) throw error;
   });
 });
+// --------------- PUT method for decrementing inventory of a product---------------------
+// Accepts: the new quantity amount and productID to know which product to decrement
 router.put('/inventory/decrement/:quantityAmount/:productID', function(req, res, next){
   const db = require('../../db');
   db.query(`UPDATE product SET quantity = (quantity - ?) WHERE productID = ?`,[req.params.quantityAmount,req.params.productID], function (error, results, fields) {
@@ -221,6 +220,7 @@ router.get('/inventory', getProducts, renderInventoryPage);
 /////////////////////////////////////////////////////////////
 // All methods required for inventory
 
+// --------------- Function for retreiving all clients ---------------------
 function getClients(req, res, next) {
   const db = require('../../db');
   db.query('SELECT * FROM client', function (error, results, fields) {
@@ -229,13 +229,12 @@ function getClients(req, res, next) {
     return next();
   });
 }
-
+// --------------- Function for rendering the client table---------------------
 function renderClientPage(req, res){
   res.render('clientlist', {
     clientTable: req.clientTable
   });
 }
-
 
 router.get('/clientlist', getClients, renderClientPage);
 
